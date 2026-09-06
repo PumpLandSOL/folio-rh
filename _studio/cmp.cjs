@@ -29,7 +29,7 @@ th{font-family:'Newsreader',serif;font-weight:300;font-size:34px;letter-spacing:
 th small{display:block;font-family:'Hanken Grotesk';font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--mut);font-weight:700;margin-top:6px}
 th .ath{font-family:'JetBrains Mono';font-size:15px;color:var(--gold2);display:block;margin-top:2px}
 td:first-child{color:var(--ink2);font-weight:500;width:330px}
-td.f{background:rgba(184,147,61,.08);color:var(--ink)}th.f{background:rgba(184,147,61,.12)}
+td.f{background:rgba(0,200,5,.08);color:var(--ink)}th.f{background:rgba(0,200,5,.12)}
 .y{color:var(--green);font-weight:700}.n{color:var(--mut)}
 b{font-weight:700;color:var(--gold2)}
 .ft{display:flex;justify-content:space-between;margin-top:22px;font-size:13px;color:var(--mut)}

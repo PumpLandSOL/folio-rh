@@ -15,7 +15,7 @@ const CSS = `${BASE}
 .card h3{font-family:'Newsreader',serif;font-weight:300;font-size:34px;letter-spacing:-.02em;margin-bottom:6px}
 .card p{font-size:17px;color:var(--ink2);line-height:1.45}
 .big{font-family:'Newsreader',serif;font-weight:300;font-size:64px;letter-spacing:-.02em;line-height:1}
-.g{color:var(--gold2)}.r{color:#c9563f}.gr{color:var(--green)}
+.g{color:var(--gold2)}.r{color:#ff5000}.gr{color:var(--green)}
 `;
 const wrap = (kicker, title, body, foot) => `<!doctype html><html><head><meta charset="utf-8">${FONTS}<style>${CSS}</style></head><body><div class="stage">
 <div class="hd"><div><span class="caps">${kicker}</span><h1 class="serif">${title}</h1></div><div class="seals"><svg class="seal" viewBox="0 0 64 64">${MONKEY}</svg><svg class="seal" viewBox="0 0 64 64">${HORSE}</svg></div></div>
@@ -46,7 +46,7 @@ const tiers = [['Paper','—','1×','6%','50%','1×'],['Bronze','0.01% supply','
 const boost = wrap('V2 · holder boost', 'Your on-chain balance is the multiplier. <em>Read live. Applied to everything.</em>', `
 <div style="display:grid;grid-template-columns:1.25fr 1fr;gap:28px">
  <table style="width:100%;border-collapse:collapse;background:var(--card);border:1px solid var(--rule);align-self:start"><thead><tr style="font-family:'Hanken Grotesk';font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--mut)"><th style="text-align:left;padding:14px 20px">Tier</th><th style="text-align:right;padding:14px 20px">Hold</th><th style="text-align:right;padding:14px 20px">Multiplier</th><th style="text-align:right;padding:14px 20px">sfUSD APY</th><th style="text-align:right;padding:14px 20px">365d lock</th><th style="text-align:right;padding:14px 20px">Points</th></tr></thead>
- <tbody>${tiers.map((t,i)=>`<tr style="font-size:22px;${i===4?'background:rgba(184,147,61,.12)':''}"><td style="padding:18px 20px;border-top:1px solid var(--rule);font-family:'Newsreader',serif;font-size:30px">${t[0]}</td>${t.slice(1).map((c,j)=>`<td style="padding:18px 20px;border-top:1px solid var(--rule);text-align:right;font-family:'JetBrains Mono';${j>=1?'color:var(--gold2)':''}">${c}</td>`).join('')}</tr>`).join('')}</tbody></table>
+ <tbody>${tiers.map((t,i)=>`<tr style="font-size:22px;${i===4?'background:rgba(0,200,5,.12)':''}"><td style="padding:18px 20px;border-top:1px solid var(--rule);font-family:'Newsreader',serif;font-size:30px">${t[0]}</td>${t.slice(1).map((c,j)=>`<td style="padding:18px 20px;border-top:1px solid var(--rule);text-align:right;font-family:'JetBrains Mono';${j>=1?'color:var(--gold2)':''}">${c}</td>`).join('')}</tr>`).join('')}</tbody></table>
  <div style="display:flex;flex-direction:column;gap:16px">
   <div class="card"><span class="caps" style="font-size:11px">How it's read</span><h3>balanceOf on Robinhood Chain, every 2 min</h3><p>No snapshot, no staking of the token, no lock. Buy $FOLIO, hold it in the connected wallet, the tier updates itself. Sell it and the tier drops.</p></div>
   <div class="card"><span class="caps" style="font-size:11px">Worked example · Diamond</span><p style="font-family:'JetBrains Mono';font-size:15px;line-height:1.7;margin-top:6px">10,000 fUSD staked → <b class="g">1,800 fUSD/yr</b> (was 600)<br>10,000 fUSD locked 365d → <b class="g">15,000 fUSD/yr</b> (was 5,000)<br>Season points → <b class="g">×3</b> on every line</p></div>

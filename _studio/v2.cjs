@@ -17,10 +17,10 @@ const page = `${head}
 .row{display:flex;gap:22px;margin-top:38px}
 .st{border:1px solid var(--rule);background:var(--card);padding:24px 30px;min-width:190px}
 .st b{display:block;font-family:'Newsreader',serif;font-weight:300;font-size:56px;letter-spacing:-.02em}
-.st b.g{color:var(--gold2)}.st b.r{color:#c9563f}
+.st b.g{color:var(--gold2)}.st b.r{color:#ff5000}
 .st span{display:block;font-size:11px;margin-top:6px}
-.tick{position:absolute;left:0;right:0;top:0;height:34px;background:#1c1b18;color:#e6d5ab;font-family:'JetBrains Mono';font-size:12px;display:flex;align-items:center;gap:34px;padding:0 20px;white-space:nowrap;overflow:hidden}
-.tick b{color:#f8f6f2;font-weight:500}.tick span{margin-right:34px}
+.tick{position:absolute;left:0;right:0;top:0;height:34px;background:#f4f4f1;color:#0f2e19;font-family:'JetBrains Mono';font-size:12px;display:flex;align-items:center;gap:34px;padding:0 20px;white-space:nowrap;overflow:hidden}
+.tick b{color:#0a0a0a;font-weight:500}.tick span{margin-right:34px}
 .tick i{display:inline-block;animation:mv 18s linear infinite;font-style:normal}
 @keyframes mv{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 .mark{display:flex;justify-content:center;position:relative;width:340px;height:200px;margin-bottom:22px}

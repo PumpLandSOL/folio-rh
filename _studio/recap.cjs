@@ -30,7 +30,7 @@ th{font-family:'Newsreader',serif;font-weight:300;font-size:32px;letter-spacing:
 th small{display:block;font-family:'Hanken Grotesk';font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--mut);font-weight:700;margin-top:4px}
 th .ath{font-family:'JetBrains Mono';font-size:15px;color:var(--gold2);display:block;margin-top:2px}
 td:first-child{color:var(--ink2);font-weight:500;width:360px}
-td.f{background:rgba(184,147,61,.08);color:var(--ink)}th.f{background:rgba(184,147,61,.12)}
+td.f{background:rgba(0,200,5,.08);color:var(--ink)}th.f{background:rgba(0,200,5,.12)}
 td.v{width:80px;text-align:right}.v span{font-family:'JetBrains Mono';font-size:11px;padding:3px 8px;border:1px solid var(--goldl);color:var(--gold2);border-radius:4px}.v span.new{background:var(--gold2);color:#fff;border-color:var(--gold2)}
 .y{color:var(--green);font-weight:700}.n{color:var(--mut)}
 b{font-weight:700;color:var(--gold2)}
