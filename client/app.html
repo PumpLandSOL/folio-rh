@@ -1,0 +1,184 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Folio — app</title><link rel="stylesheet" href="/folio.css">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='30' fill='%23f8f6f2'/%3E%3Ccircle cx='32' cy='32' r='26' fill='none' stroke='%23b8933d' stroke-width='2'/%3E%3Ccircle cx='32' cy='30' r='11' fill='none' stroke='%23b8933d' stroke-width='2.5'/%3E%3Ccircle cx='19.5' cy='29' r='4.5' fill='none' stroke='%23b8933d' stroke-width='2.5'/%3E%3Ccircle cx='44.5' cy='29' r='4.5' fill='none' stroke='%23b8933d' stroke-width='2.5'/%3E%3C/svg%3E"><style>.castrip{display:inline-flex;align-items:center;gap:10px;margin:14px 0 0;padding:8px 12px;border:1px solid var(--rule,#e6e1d8);background:var(--card,#fffdf9);cursor:pointer;font-size:12px;max-width:100%}.castrip span{font-family:'Hanken Grotesk',sans-serif;font-weight:700;letter-spacing:.18em;text-transform:uppercase;font-size:10px;color:var(--gold,#b8933d);white-space:nowrap}.castrip code{font-family:'JetBrains Mono',monospace;color:var(--ink,#1c1b18);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.castrip em{font-style:normal;color:var(--mut,#8f8b82);white-space:nowrap}.castrip:hover em{color:var(--gold,#b8933d)}</style>
+</head>
+<body>
+<svg style="display:none" xmlns="http://www.w3.org/2000/svg">
+<symbol id="zMonkey" viewBox="0 0 64 64"><circle cx="32" cy="32" r="30" stroke-dasharray="1.5 3"/><circle cx="32" cy="32" r="26.5"/>
+<circle cx="32" cy="29" r="11"/><circle cx="19.5" cy="28" r="4.2"/><circle cx="44.5" cy="28" r="4.2"/>
+<path d="M24 31c1.5-6 5-9 8-9s6.5 3 8 9c-1.5 4.5-4.5 7.5-8 7.5s-6.5-3-8-7.5z"/>
+<path d="M26.5 26.5c1-1 2.5-1.2 3.6-.6M33.9 25.9c1.1-.6 2.6-.4 3.6.6"/>
+<circle cx="28.4" cy="28.8" r=".9" fill="currentColor"/><circle cx="35.6" cy="28.8" r=".9" fill="currentColor"/>
+<path d="M31.2 33.2h1.6"/>
+<path d="M32 40c-8 0-14 4-14 10M32 40c8 0 14 4 14 10M43 47c4-1 7 1 8 5s-2 6-5 4"/>
+</symbol>
+<symbol id="zHorse" viewBox="0 0 64 64"><circle cx="32" cy="32" r="30" stroke-dasharray="1.5 3"/><circle cx="32" cy="32" r="26.5"/>
+<path d="M18 52c2-14 6-24 14-30l3-8 3 7c6 1 10 6 13 15c1 3 1 5-1 7c-2 1-5 0-7-2c-3-2-6-2-8 0c-4 3-8 9-9 11"/>
+<path d="M32 22c-3 2-5 5-6 9M35 21c-2 3-4 6-4 10M38 22c-2 3-3 6-3 9"/>
+<circle cx="43" cy="30" r="1" fill="currentColor"/><path d="M48 39c.6.4 1 1 1 1.6"/>
+<path d="M36 41c-2 1-4 3-5 5"/>
+</symbol></svg>
+<header class="top"><div class="wrap">
+ <a class="brand" href="/"><svg class="seal" aria-hidden="true"><use href="#zMonkey"/></svg><b>Folio</b></a>
+ <nav><a href="/">Home</a><a class="on" href="/app">fUSD</a><a href="/proof">Proof</a><a href="/docs">Docs</a><a href="/x" target="_blank" rel="noopener">𝕏</a><button class="btn mini" id="walletBtn">Connect wallet</button></nav>
+</div></header>
+<div class="wrap" style="padding-top:8px"><div id="castrip"></div></div>
+<div class="tape"><div class="wrap" id="tape">loading oracle…</div></div>
+<div class="wrap">
+ <div class="statement" id="acct" style="display:none"><div class="head"><span>Account · <span id="acctW"></span></span><b id="acctNav">—</b></div>
+  <div class="stats">
+   <div class="stat"><b id="sFusd">—</b><span>fUSD wallet</span></div><div class="stat"><b id="sSf">—</b><span>sfUSD value</span></div><div class="stat"><b id="sDebt">—</b><span>fUSD debt</span></div>
+   <div class="stat"><b id="sColl">—</b><span>collateral value</span></div><div class="stat"><b id="sSp">—</b><span>stability pool</span></div><div class="stat"><b id="sLock">—</b><span>term-locked fUSD</span></div><div class="stat acc"><b id="sTier">—</b><span>holder boost</span></div><div class="stat"><b id="sPts">—</b><span>season points</span></div><div class="stat acc"><b id="sDiv">—</b><span>stock dividends rec'd</span></div><div class="stat"><b id="sPnl">—</b><span>perps realized</span></div>
+  </div></div>
+ <div class="tabs" id="tabs"></div>
+ <div id="view"></div>
+</div>
+<footer><div class="gold-rule"></div><div class="wrap"><span class="seals"><svg class="seal" aria-hidden="true"><use href="#zMonkey"/></svg><svg class="seal" aria-hidden="true"><use href="#zHorse"/></svg></span><span>Folio · $FOLIO · ETH Chain · pyth oracle</span><span>fUSD · sfUSD · 15-minute stock dividends · perps</span><span id="pxFolio"></span></div></footer>
+<div class="toast" id="toast"></div>
+<script>
+const $=id=>document.getElementById(id);let S=null,WALLET=localStorage.getItem('folio_w')||'',TAB=localStorage.getItem('folio_tab')||'mint',F={};
+const fmt=(v,d=2)=>(+v||0).toLocaleString(undefined,{minimumFractionDigits:d,maximumFractionDigits:d});
+const fpx=v=>v>=1000?fmt(v,2):v>=1?fmt(v,v>=100?2:3):(+v).toFixed(6);
+const toast=m=>{const t=$('toast');t.textContent=m;t.classList.add('show');clearTimeout(t._t);t._t=setTimeout(()=>t.classList.remove('show'),2600)};
+const hfCls=h=>h==null||h>1.5?'ok':h>1.1?'warn':'bad';const hfTxt=h=>h==null?'∞':h.toFixed(2);
+async function api(u,d){const r=await fetch(u,d?{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify(d)}:undefined);return r.json()}
+async function act(u,d){if(!WALLET)return connect();const r=await api(u,{wallet:WALLET,...d});if(r.error)return toast(r.error);toast('Done');load()}
+async function connect(){if(window.ethereum){try{const a=await window.ethereum.request({method:'eth_requestAccounts'});if(a&&a[0])return setWallet(a[0])}catch(e){}}const w=prompt('Paste a 0x address:');if(w&&/^0x[a-fA-F0-9]{40}$/.test(w.trim()))setWallet(w.trim())}
+async function treasuryDeposit(){
+  const st=$('tStat');const sym=$('tSym').value;const amt=parseFloat(val('tAmt'));if(!(amt>0))return st.textContent='enter an amount';
+  if(!window.ethereum)return st.textContent='no wallet extension found — send '+sym+' manually to '+S.treasury.addr+' then use "credit a tx hash" below';
+  try{
+    const acc=(await window.ethereum.request({method:'eth_requestAccounts'}))[0];if(acc.toLowerCase()!==WALLET)return st.textContent='wallet extension account ≠ connected account';
+    try{await window.ethereum.request({method:'wallet_switchEthereumChain',params:[{chainId:'0x1237'}]})}catch(e){if(e.code===4902)await window.ethereum.request({method:'wallet_addEthereumChain',params:[{chainId:'0x1237',chainName:'Robinhood Chain',nativeCurrency:{name:'Ether',symbol:'ETH',decimals:18},rpcUrls:['https://rpc.mainnet.chain.robinhood.com'],blockExplorerUrls:['https://explorer.mainnet.chain.robinhood.com']}]})}
+    const wei=sym==='ETH'?BigInt(Math.round(amt*1e6))*BigInt(1e12):BigInt(Math.round(amt*1e6));const hex='0x'+wei.toString(16);let tx;
+    if(sym==='ETH')tx={from:acc,to:S.treasury.addr,value:hex};
+    else tx={from:acc,to:S.treasury.tokens.USDG,value:'0x0',data:'0xa9059cbb'+S.treasury.addr.slice(2).toLowerCase().padStart(64,'0')+wei.toString(16).padStart(64,'0')};
+    st.textContent='confirm in wallet…';const h=await window.ethereum.request({method:'eth_sendTransaction',params:[tx]});
+    st.innerHTML='sent <a href="https://explorer.mainnet.chain.robinhood.com/tx/'+h+'" target=_blank style="color:var(--gold)">'+h.slice(0,12)+'…</a> · waiting for confirmation';
+    for(let i=0;i<40;i++){await new Promise(r=>setTimeout(r,3000));const r=await api('/api/treasury/credit',{wallet:WALLET,tx:h});if(r&&r.ok){st.innerHTML='✓ '+fmt(r.r.amt,4)+' '+r.r.sym+' credited · block '+r.r.block;return load()}if(r&&r.error&&!/pending|not found/.test(r.error)){st.textContent=r.error;return}}
+    st.textContent='still pending — use "credit a tx hash" once confirmed';
+  }catch(e){st.textContent=e&&e.message||String(e)}
+}
+async function creditTx(h){const r=await api('/api/treasury/credit',{wallet:WALLET,tx:h});$('tStat').textContent=r.ok?'✓ credited '+r.r.amt+' '+r.r.sym:r.error;load()}
+function setWallet(w){WALLET=w.toLowerCase();localStorage.setItem('folio_w',WALLET);renderWallet();load()}
+function renderWallet(){const b=$('walletBtn');if(WALLET){b.textContent=WALLET.slice(0,6)+'…'+WALLET.slice(-4);b.className='btn ghost mini';b.onclick=()=>{if(confirm('Disconnect?')){WALLET='';localStorage.removeItem('folio_w');renderWallet();load()}}}else{b.textContent='Connect wallet';b.className='btn mini';b.onclick=connect}}
+function renderCA(m){const el=document.getElementById('castrip');if(!el||!m)return;el.className='castrip';el.title='Copy contract address';el.onclick=()=>{navigator.clipboard.writeText(m);el.querySelector('em').textContent='copied';setTimeout(()=>el.querySelector('em').textContent='copy',1200)};el.innerHTML='<span>$FOLIO · Robinhood Chain</span><code>'+m+'</code><em>copy</em>'}
+async function load(){try{S=await api('/api/state'+(WALLET?'?w='+WALLET:''));renderCA(S.folio&&S.folio.mint);render()}catch(e){}}
+const TABS=[['mint','Mint fUSD'],['stake','Stake & Stability'],['boost','Boost & Lock ★'],['season','Season 1'],['div','Dividends'],['perps','Perps'],['activity','Activity']];
+function render(){
+  if(!S)return;
+  $('tape').innerHTML=Object.entries(S.px).filter(([s])=>s!=='USDG').map(([s,v])=>`<span><b>${s}</b> $${fpx(v)}</span>`).join('')+`<span><b>fUSD supply</b> ${fmt(S.supply,0)}</span><span><b>backing</b> ${S.backing?fmt(S.backing*100,0)+'%':'—'}</span><span><b>next dividend</b> ${cd(S.div.next-S.t)}</span><span><b>burned</b> ${fmt(S.burn.fusd,0)}</span><span><b>sfUSD up to</b> ${(S.stake.maxApy*100).toFixed(0)}%</span>`;
+  $('tabs').innerHTML=TABS.map(([k,l])=>`<button class="${TAB===k?'on':''}" onclick="TAB='${k}';localStorage.setItem('folio_tab','${k}');render()">${l}</button>`).join('');
+  const me=S.me;
+  if(me){$('acct').style.display='';$('acctW').textContent=me.wallet;$('acctNav').textContent='NAV $'+fmt(me.nav);$('sFusd').textContent=fmt(me.bal.fUSD);$('sSf').textContent=fmt(me.sfusd);$('sDebt').textContent=fmt(me.vaults.reduce((a,v)=>a+v.debt,0));$('sColl').textContent='$'+fmt(me.vaults.reduce((a,v)=>a+v.collValue,0));$('sSp').textContent=fmt(me.spVal);$('sLock').textContent=fmt(me.lockVal);$('sTier').textContent=me.boost.name+' '+me.boost.mult+'×';$('sPts').textContent=fmt(me.season.pts,0)+(me.season.rank?' · #'+me.season.rank:'');
+    $('sDiv').textContent='$'+fmt(Object.entries(me.divs).reduce((a,[s,n])=>a+n*(S.px[s]||0),0));$('sPnl').textContent=(me.pnl>=0?'+':'')+fmt(me.pnl);}
+  else $('acct').style.display='none';
+  const active=document.activeElement;if(active&&active.tagName==='INPUT'&&$('view').contains(active))return;
+  $('view').innerHTML=({mint:vMint,stake:vStake,boost:vBoost,season:vSeason,div:vDiv,perps:vPerps,activity:vAct})[TAB]();
+  $('pxFolio').textContent=S.folio.price?'$FOLIO $'+fpx(S.folio.price):'';
+}
+const cd=ms=>{if(ms<=0)return'now';const s=Math.floor(ms/1e3);return `${Math.floor(s/60)}:${String(s%60).padStart(2,'0')}`};
+const inp=(id,label,ph,hint,type='')=>`<div class="field"><label>${label}</label><input id="${id}" inputmode="decimal" placeholder="${ph}" value="${F[id]||''}" oninput="F['${id}']=this.value"><div class="hint">${hint||''}</div></div>`;
+const val=id=>parseFloat(($(id)&&$(id).value||'').replace(/,/g,''));
+/* ---------- MINT ---------- */
+function vMint(){
+  const me=S.me;const sel=F.mSym||'NVDA';const m=S.markets[sel];const v=me&&me.vaults.find(x=>x.sym===sel);
+  const rows=Object.entries(S.markets).map(([s,m])=>`<tr onclick="F.mSym='${s}';render()" style="cursor:pointer;${sel===s?'background:rgba(107,155,122,.14)':''}"><td><b>${s}</b> <span class="tag">${m.tier}</span></td><td class="num">$${fpx(m.px)}</td><td class="num">${(m.ltv*100).toFixed(0)}%</td><td class="num">${(m.liq*100).toFixed(0)}%</td><td class="num">${fmt(m.coll*m.px,0)}</td><td class="num">${fmt(m.debt,0)}</td><td class="num">${me?fmt(me.bal[s]||0,4):'—'}</td></tr>`).join('');
+  return `<div class="two"><div><div class="panel" style="margin-bottom:24px;border-color:var(--gold)"><span class="kicker">Treasury · Robinhood Chain</span><h3>Fund your account from your wallet</h3>
+<p style="font-size:12px;color:var(--mut)">Assets you stake or collateralize are held in the protocol treasury <code style="font-family:'JetBrains Mono';font-size:11px">${S.treasury.addr}</code> <a href="https://explorer.mainnet.chain.robinhood.com/address/${S.treasury.addr}" target=_blank rel=noopener style="color:var(--gold)">explorer ↗</a>. Send ETH or USDG from your connected wallet; the transfer is verified on-chain and credited here.</p>
+${S.treasury.onchain?`<div class="stats" style="border:1px solid var(--rule);margin:10px 0"><div class="stat"><b>${fmt(S.treasury.onchain.ETH,4)}</b><span>ETH in treasury</span></div><div class="stat"><b>${fmt(S.treasury.onchain.USDG)}</b><span>USDG in treasury</span></div><div class="stat"><b>${fmt(S.treasury.onchain.FOLIO,0)}</b><span>$FOLIO in treasury</span></div><div class="stat"><b>${fmt(S.treasury.credited.ETH||0,4)} / ${fmt(S.treasury.credited.USDG||0)}</b><span>ETH / USDG credited</span></div></div>`:''}
+<div class="row" style="align-items:flex-end"><div style="flex:1">${inp('tAmt','Amount','0.05',me?'deposited so far · ETH '+fmt(me.deposited.ETH||0,4)+' · USDG '+fmt(me.deposited.USDG||0):'')}</div><select id="tSym" style="padding:10px;border:1px solid var(--rule);background:var(--card);font-family:'JetBrains Mono'"><option>ETH</option><option>USDG</option></select><button class="btn acc" onclick="treasuryDeposit()">Send to treasury</button></div>
+<div id="tStat" style="font-size:12px;color:var(--ink2);margin-top:8px"></div><p style="font-size:11px;color:var(--mut);margin-top:8px">Sent manually? <a href="#" onclick="event.preventDefault();const h=prompt('tx hash');if(h)creditTx(h.trim())" style="color:var(--gold)">credit a tx hash</a>. Withdrawals of treasury assets are processed from the treasury wallet.</p></div>
+<span class="kicker">Collateral markets · isolated · Arrow tiers</span>
+   <table><thead><tr><th>Asset</th><th class="num">Oracle</th><th class="num">Max LTV</th><th class="num">Liq. thr.</th><th class="num">Deposited $</th><th class="num">fUSD debt</th><th class="num">Your wallet</th></tr></thead><tbody>${rows}</tbody></table>
+   ${me&&me.vaults.length?`<div class="sec" style="margin:28px 0"><span class="kicker">Your vaults</span><table><thead><tr><th>Market</th><th class="num">Collateral</th><th class="num">Value</th><th class="num">Debt</th><th class="num">Health</th><th class="num">Liq. price</th></tr></thead><tbody>${me.vaults.map(v=>`<tr onclick="F.mSym='${v.sym}';render()" style="cursor:pointer"><td><b>${v.sym}</b></td><td class="num">${fmt(v.coll,4)}</td><td class="num">$${fmt(v.collValue)}</td><td class="num">${fmt(v.debt)}</td><td class="num hf ${hfCls(v.hf)}">${hfTxt(v.hf)}</td><td class="num">${v.liqPrice?'$'+fpx(v.liqPrice):'—'}</td></tr>`).join('')}</tbody></table></div>`:''}
+   <div class="panel" style="margin-top:24px"><span class="kicker">Peg stability module</span><h3>USDG ⇄ fUSD · 1:1 · zero fee</h3><p style="color:var(--mut);font-size:12px">PSM reserve: ${fmt(S.psm)} USDG idle · your USDG ${me?fmt(me.bal.USDG):'—'}</p>
+    ${inp('psmAmt','Amount','100')}<div class="row"><button class="btn" onclick="act('/api/psm',{dir:'in',amount:val('psmAmt')})">USDG → fUSD</button><button class="btn ghost" onclick="act('/api/psm',{dir:'out',amount:val('psmAmt')})">fUSD → USDG</button></div></div>
+  </div>
+  <aside><div class="panel"><span class="kicker">${m.tier} · LTV ${(m.ltv*100).toFixed(0)}% · liq ${(m.liq*100).toFixed(0)}%</span><h3>${sel} vault</h3>
+   <p style="font-size:12px;color:var(--mut)">Oracle $${fpx(m.px)} · stability fee 3.00% APR · origination 0.10%</p>
+   ${v?`<div class="stats" style="border:1px solid var(--rule);margin:10px 0"><div class="stat"><b>${fmt(v.coll,4)}</b><span>${sel} locked</span></div><div class="stat"><b>${fmt(v.debt)}</b><span>fUSD debt</span></div><div class="stat"><b class="hf ${hfCls(v.hf)}">${hfTxt(v.hf)}</b><span>health</span></div><div class="stat"><b>${fmt(v.maxMint)}</b><span>mintable</span></div></div>`:''}
+   ${inp('dAmt','Deposit '+sel,'1.0','wallet: '+(me?fmt(me.bal[sel]||0,4):'—'))}<div class="row"><button class="btn" onclick="act('/api/deposit',{sym:'${sel}',amount:val('dAmt')})">Deposit</button><button class="btn ghost" onclick="act('/api/withdraw',{sym:'${sel}',amount:val('dAmt')})">Withdraw</button></div>
+   ${inp('mAmt','Mint / repay fUSD','100',v?'max mint '+fmt(v.maxMint)+' fUSD':'deposit first')}<div class="row"><button class="btn acc" onclick="act('/api/mint',{sym:'${sel}',amount:val('mAmt')})">Mint fUSD</button><button class="btn ghost" onclick="act('/api/repay',{sym:'${sel}',amount:val('mAmt')})">Repay</button></div>
+   <p style="font-size:11px;color:var(--mut);margin-top:12px">Liquidation at health &lt; 1.0 — the stability pool burns your debt and takes collateral 5% under oracle.</p></div></aside></div>`;
+}
+/* ---------- STAKE ---------- */
+function vStake(){const me=S.me;const gains=Object.entries(S.sp.gains).filter(([,v])=>v>1e-9);
+  return `<div class="two"><div>
+   <div class="panel"><span class="kicker">sfUSD · base ${(S.stake.apy*100).toFixed(0)}% → up to ${(S.stake.maxApy*100).toFixed(0)}% APY with holder boost</span><h3>Stake fUSD → sfUSD ${me?`<span class="tag acc" style="vertical-align:middle">${me.boost.name} ${me.boost.mult}× · ${(me.boost.apy*100).toFixed(1)}% APY</span>`:''}</h3><p style="color:var(--ink2);font-size:13px">Share token that accretes value. Funded by borrower stability fees first, surplus buffer second. <b>V2:</b> hold $FOLIO on ETH Chain and your personal sfUSD APY is multiplied — Bronze 1.5× · Silver 2× · Gold 2.5× · Diamond 3× (18%). See <a href="#" onclick="event.preventDefault();TAB='boost';render()" style="color:var(--gold)">Boost &amp; Lock</a>. Exit fee = one day of base APR, burned.</p>
+    <div class="stats" style="border:1px solid var(--rule);margin:12px 0"><div class="stat"><b>${fmt(S.stake.pool)}</b><span>fUSD staked</span></div><div class="stat"><b>${S.stake.pps.toFixed(6)}</b><span>sfUSD price</span></div><div class="stat"><b>${me?fmt(me.sfusd):'—'}</b><span>your sfUSD value</span></div></div>
+    ${inp('stAmt','fUSD to stake','100','wallet '+(me?fmt(me.bal.fUSD):'—'))}<div class="row"><button class="btn acc" onclick="act('/api/stake',{amount:val('stAmt')})">Stake</button><button class="btn ghost" onclick="act('/api/unstake',{shares:val('stAmt')/S.stake.pps})">Unstake (fUSD value)</button></div></div>
+   <div class="panel" style="margin-top:24px"><span class="kicker">Stability pool · liquidation backstop</span><h3>Earn liquidated collateral</h3><p style="color:var(--ink2);font-size:13px">Deposit fUSD. When a vault's health drops below 1.0 the pool burns its debt and receives the collateral at a 5% discount, pro-rata to depositors.</p>
+    <div class="stats" style="border:1px solid var(--rule);margin:12px 0"><div class="stat"><b>${fmt(S.sp.pool)}</b><span>fUSD in pool</span></div><div class="stat"><b>${me?fmt(me.spVal):'—'}</b><span>your share</span></div><div class="stat"><b>${gains.length?gains.map(([s,v])=>fmt(v,3)+' '+s).join(' · '):'—'}</b><span>collateral gains</span></div></div>
+    ${inp('spAmt','fUSD','100')}<div class="row"><button class="btn" onclick="act('/api/sp/deposit',{amount:val('spAmt')})">Deposit</button><button class="btn ghost" onclick="act('/api/sp/withdraw',{shares:S.sp.pool>0?val('spAmt')/(S.sp.pool/(S.sp.shares||1)):val('spAmt')})">Withdraw</button></div></div>
+  </div><aside><div class="panel"><span class="kicker">Protocol</span><h3>Solvency</h3><table><tbody>
+   <tr><td>fUSD supply</td><td class="num">${fmt(S.supply)}</td></tr><tr><td>Collateral + PSM (TVL)</td><td class="num">$${fmt(S.tvl)}</td></tr><tr><td>Backing ratio</td><td class="num">${S.backing?fmt(S.backing*100,1)+'%':'—'}</td></tr><tr><td>Surplus buffer</td><td class="num">${fmt(S.surplus)}</td></tr><tr><td>PSM USDG</td><td class="num">${fmt(S.psm)}</td></tr><tr><td>Perp fees (all-time)</td><td class="num">${fmt(S.perpFees)}</td></tr></tbody></table>
+   <h3 style="margin-top:18px">Liquidations</h3><table><tbody>${S.liqs.slice(0,8).map(l=>`<tr><td>${l.w}</td><td>${l.sym}</td><td style="font-size:11px;color:var(--mut)">${l.mode}</td><td class="num">${fmt(l.debt,0)}</td></tr>`).join('')||'<tr><td colspan=4 style="color:var(--mut)">none yet</td></tr>'}</tbody></table></div></aside></div>`;
+}
+/* ---------- DIVIDENDS ---------- */
+function vDiv(){const me=S.me;const d=S.div;
+  return `<div class="two"><div>
+   <div class="statement" style="margin:0"><div class="head"><span>Dividend engine · every 15 minutes</span><b>epoch ${d.epoch} · next in ${cd(d.next-S.t)}</b></div>
+    <div class="stats"><div class="stat acc"><b>$${fmt(d.revenue)}</b><span>revenue accrued this epoch</span></div><div class="stat"><b>$${fmt(d.paid)}</b><span>stock airdropped all-time</span></div><div class="stat"><b>${fmt(d.lp)}</b><span>locked LP all-time</span></div><div class="stat"><b style="color:var(--red)">${fmt(S.burn.fusd)}</b><span>$FOLIO buyback &amp; burn</span></div><div class="stat"><b>${S.users}</b><span>holders</span></div></div>
+    ${S.folio.chain&&S.folio.chain.ok?`<div style="display:flex;gap:18px;flex-wrap:wrap;font-family:'JetBrains Mono';font-size:11px;padding:10px 0 2px;color:var(--ink2)"><span style="color:var(--green)">● on-chain</span><span>ETH Chain block ${S.folio.chain.block}</span><span>supply ${fmt(S.folio.chain.supply,0)} ${S.folio.chain.symbol||'$FOLIO'}</span><span>${S.folio.chain.holdersRead} wallets read live</span><a href="https://explorer.mainnet.chain.robinhood.com/token/${S.folio.mint}" target="_blank" rel="noopener" style="color:var(--gold)">explorer ↗</a></div>`:''}</div>
+   <p style="color:var(--ink2);max-width:700px;margin:18px 0">Every origination fee, stability fee, perp fee and liquidation fee lands in the revenue pot. At the top of each 15-minute epoch, <b>40% buys a tokenized stock at oracle price and is airdropped to $FOLIO holders pro-rata; 30% goes to locked FOLIO liquidity; 30% is allocated to $FOLIO buyback &amp; burn</b> (V2 · ${S.burn.epochs} burn epochs · ${S.burn.folio>0?fmt(S.burn.folio,0)+' $FOLIO at market so far':'executed from treasury at market'}). Rotation: NVDA → AAPL → GOOGL → HOOD → META → SPY.</p>
+   <table><thead><tr><th>Epoch</th><th>Time</th><th>Stock</th><th class="num">USD</th><th class="num">Shares</th><th class="num">@ price</th><th class="num">Holders</th><th class="num">→ LP</th><th class="num">→ Burn</th><th>Receipt</th></tr></thead><tbody>${d.history.map(h=>`<tr><td>${h.epoch}</td><td>${new Date(h.t).toISOString().slice(11,16)} UTC</td><td><b>${h.sym}</b></td><td class="num">$${fmt(h.usd)}</td><td class="num">${fmt(h.shares,5)}</td><td class="num">$${fpx(h.px)}</td><td class="num">${h.holders}</td><td class="num">${fmt(h.lp)}</td><td class="num" style="color:var(--red)">${fmt(h.burn||0)}</td><td style="font-family:'JetBrains Mono';font-size:10px;color:var(--mut)" title="sha256 · block ${h.block||'—'}">${h.receipt?h.receipt.slice(0,10)+'…':'—'}</td></tr>`).join('')||'<tr><td colspan=10 style="color:var(--mut)">first epoch pays at the next quarter-hour</td></tr>'}</tbody></table>
+  </div><aside><div class="panel"><span class="kicker">Your dividends</span><h3>Stock received</h3>
+   ${me?`<p style="font-size:12px;color:var(--mut)">holding <b>${fmt(me.folio,0)} $FOLIO</b> ${me.onchain?`<span style="color:var(--green)">· verified on Robinhood Chain</span> · ${(me.folioShare*100).toFixed(4)}% of supply`:'· reading chain…'} <a href="#" onclick="event.preventDefault();fetch('/api/holder?w='+WALLET).then(()=>load())" style="color:var(--gold)">refresh</a></p><table><tbody>${Object.entries(me.divs).map(([s,n])=>`<tr><td><b>${s}</b></td><td class="num">${fmt(n,6)}</td><td class="num">$${fmt(n*(S.px[s]||0))}</td></tr>`).join('')||'<tr><td style="color:var(--mut)">nothing yet — hold through an epoch</td></tr>'}</tbody></table>`:'<p style="color:var(--mut)">Connect a wallet.</p>'}
+  </div></aside></div>`;
+}
+/* ---------- PERPS ---------- */
+function vPerps(){const me=S.me;const sel=F.pSym||'NVDA';const mk=S.perps.find(p=>p.sym===sel);const side=F.pSide||'long';const lev=+(F.pLev||5);const margin=val('pMargin')||+(F.pMargin||100);
+  const rows=S.perps.map(p=>`<tr onclick="F.pSym='${p.sym}';render()" style="cursor:pointer;${sel===p.sym?'background:rgba(184,147,61,.12)':''}"><td><b>${p.sym}</b></td><td class="num">$${fpx(p.px)}</td><td class="num">${p.maxLev}×</td><td class="num ${p.funding.rate>=0?'dn':'up'}">${(p.funding.rate*100).toFixed(4)}%</td><td class="num">${fmt(p.funding.longOI||0,0)}</td><td class="num">${fmt(p.funding.shortOI||0,0)}</td></tr>`).join('');
+  const liq=side==='long'?mk.px*(1-1/lev+0.005):mk.px*(1+1/lev-0.005);
+  return `<div class="two"><div><span class="kicker">Perpetuals · fUSD margin · tape mark · hourly funding</span>
+   <table><thead><tr><th>Market</th><th class="num">Mark</th><th class="num">Max lev</th><th class="num">Funding / h</th><th class="num">Long OI</th><th class="num">Short OI</th></tr></thead><tbody>${rows}</tbody></table>
+   ${me&&me.positions.length?`<div style="margin-top:26px"><span class="kicker">Open positions</span><table><thead><tr><th>Market</th><th>Side</th><th class="num">Size</th><th class="num">Entry</th><th class="num">Mark</th><th class="num">Liq</th><th class="num">PnL</th><th class="num">ROE</th><th></th></tr></thead><tbody>${me.positions.map(p=>`<tr><td><b>${p.sym}</b> ${p.lev}×</td><td class="${p.side==='long'?'up':'dn'}">${p.side}</td><td class="num">${fmt(p.notional,0)}</td><td class="num">${fpx(p.entry)}</td><td class="num">${fpx(p.px)}</td><td class="num">${fpx(p.liqPx)}</td><td class="num ${p.pnl>=0?'up':'dn'}">${p.pnl>=0?'+':''}${fmt(p.pnl)}</td><td class="num ${p.roe>=0?'up':'dn'}">${(p.roe*100).toFixed(1)}%</td><td><button class="btn mini ghost" onclick="act('/api/perp/close',{id:'${p.id}'})">Close</button></td></tr>`).join('')}</tbody></table></div>`:''}
+  </div><aside><div class="panel"><span class="kicker">${sel} · max ${mk.maxLev}× · fee 0.06%</span><h3>${sel} <span style="font-weight:400">$${fpx(mk.px)}</span></h3>
+   <div class="seg" style="margin:10px 0"><button class="${side==='long'?'on long':''}" onclick="F.pSide='long';render()">Long</button><button class="${side==='short'?'on short':''}" onclick="F.pSide='short';render()">Short</button></div>
+   ${inp('pMargin','Margin · fUSD','100','wallet '+(me?fmt(me.bal.fUSD):'—')+' fUSD')}
+   <div class="field"><label>Leverage · ${lev}×</label><input type="range" min="1" max="${mk.maxLev}" step="1" value="${lev}" oninput="F.pLev=this.value;render()" style="font-size:12px;padding:0"><div class="hint">notional ${fmt(margin*lev,0)} fUSD · est. liq $${fpx(liq)} · maint 0.5%</div></div>
+   <button class="btn ${side==='long'?'':'acc'}" style="width:100%;background:${side==='long'?'var(--green)':'var(--red)'};border-color:${side==='long'?'var(--green)':'var(--red)'}" onclick="act('/api/perp/open',{sym:'${sel}',side:'${side}',margin:val('pMargin')||100,lev:${lev}})">${side==='long'?'Buy / Long':'Sell / Short'} ${sel}</button>
+   <p style="font-size:11px;color:var(--mut);margin-top:10px">Isolated margin. Funding hourly, longs pay shorts when long OI dominates. Fees flow to the dividend engine.</p></div></aside></div>`;
+}
+/* ---------- BOOST & LOCK ---------- */
+function vBoost(){const me=S.me;const b=me&&me.boost;const days=+(F.lkDays||90);const terms=S.locks.terms;const amt=val('lkAmt')||+(F.lkAmt||1000);const apy=terms[days]*(b?b.mult:1);
+  const tiers=S.tiers.map((t,i)=>`<tr style="${b&&b.idx===i?'background:rgba(184,147,61,.12)':''}"><td><b>${t.name}</b>${b&&b.idx===i?' <span class="tag acc">you</span>':''}</td><td class="num">${S.folio.chain.ok?fmt(t.share*S.folio.chain.supply,0):fmt([0,10000,100000,500000,1000000][i],0)}+ $FOLIO</td><td class="num">${t.mult}×</td><td class="num">${(S.stake.apy*t.mult*100).toFixed(0)}%</td><td class="num">${(terms[365]*t.mult*100).toFixed(0)}%</td><td class="num">${t.mult}×</td></tr>`).join('');
+  return `<div class="two"><div>
+   <div class="statement" style="margin:0 0 24px"><div class="head"><span>V2 · Holder boost · read live from Robinhood Chain</span><b>${me?me.boost.name+' · '+me.boost.mult+'×':'connect wallet'}</b></div>
+    <div class="stats"><div class="stat acc"><b>${me?(me.boost.apy*100).toFixed(1)+'%':'—'}</b><span>your sfUSD APY</span></div><div class="stat"><b>${me?fmt(me.folio,0):'—'}</b><span>$FOLIO held${me&&me.onchain?' · on-chain ✓':''}</span></div><div class="stat"><b>${me&&me.boost.next?fmt(Math.max(0,me.boost.next.need-me.folio),0):'—'}</b><span>${me&&me.boost.next?'more $FOLIO → '+me.boost.next.name+' '+me.boost.next.mult+'×':'max tier'}</span></div><div class="stat"><b>${me?fmt(me.boostEarned,4):'—'}</b><span>boost yield earned (fUSD)</span></div></div></div>
+   <p style="color:var(--ink2);max-width:720px;margin:0 0 14px">Your real $FOLIO balance sets a multiplier that applies to <b>everything</b>: sfUSD APY, term-lock APY and Season points. Buy $FOLIO, hold it in the connected wallet, and every yield line in the protocol scales up.</p>
+   <table><thead><tr><th>Tier</th><th class="num">Hold</th><th class="num">Multiplier</th><th class="num">sfUSD APY</th><th class="num">365d lock APY</th><th class="num">Points</th></tr></thead><tbody>${tiers}</tbody></table>
+   ${me&&me.locks.length?`<div style="margin-top:28px"><span class="kicker">Your term locks</span><table><thead><tr><th>Lock</th><th class="num">Principal</th><th>Term</th><th class="num">APY (boosted)</th><th class="num">Earned</th><th>Unlocks</th><th></th></tr></thead><tbody>${me.locks.map(L=>`<tr><td>${L.id}</td><td class="num">${fmt(L.amt)}</td><td>${L.days}d</td><td class="num">${(L.boosted*100).toFixed(1)}%</td><td class="num up">+${fmt(L.earned,4)}</td><td>${L.matured?'<span class="tag acc">matured</span>':new Date(L.until).toISOString().slice(0,10)}</td><td><button class="btn mini ${L.matured?'':'ghost'}" onclick="if(${L.matured}||confirm('Early exit burns 10% of principal. Continue?'))act('/api/unlock',{id:'${L.id}'})">${L.matured?'Claim':'Exit early'}</button></td></tr>`).join('')}</tbody></table></div>`:''}
+  </div><aside><div class="panel" style="border-color:var(--gold)"><span class="kicker">Term locks · fixed-term fUSD</span><h3>Lock fUSD. Earn up to ${(terms[365]*3*100).toFixed(0)}%.</h3>
+   <p style="font-size:12px;color:var(--mut)">Lock fUSD for a fixed term at a fixed base APY, multiplied by your holder tier. Yield accrues every 3 seconds. Early exit burns 10% of principal. ${fmt(S.locks.tvl,0)} fUSD locked across ${S.locks.n} locks.</p>
+   <div class="seg" style="margin:10px 0;display:grid;grid-template-columns:repeat(4,1fr)">${Object.entries(terms).map(([d,a])=>`<button class="${days==+d?'on':''}" onclick="F.lkDays='${d}';render()">${d}d<br><small>${(a*100).toFixed(0)}%</small></button>`).join('')}</div>
+   ${inp('lkAmt','fUSD to lock','1000','wallet '+(me?fmt(me.bal.fUSD):'—')+' fUSD · min 10')}
+   <div class="stats" style="border:1px solid var(--rule);margin:8px 0 12px"><div class="stat"><b>${(apy*100).toFixed(1)}%</b><span>your APY (${b?b.mult:1}× boost)</span></div><div class="stat"><b>+${fmt(amt*apy*days/365)}</b><span>fUSD at maturity</span></div></div>
+   <button class="btn acc" style="width:100%" onclick="act('/api/lock',{amount:val('lkAmt'),days:${days}})">Lock ${days} days</button>
+   <p style="font-size:11px;color:var(--mut);margin-top:10px">Locked fUSD earns 3× Season points per dollar (×1.3 / ×1.6 / ×2 for 90 / 180 / 365d).</p></div></aside></div>`;
+}
+/* ---------- SEASON ---------- */
+function vSeason(){const me=S.me;const s=S.season;const m=me&&me.season;const left=s.end-S.t;const dl=Math.max(0,Math.floor(left/864e5));
+  const brk=m?Object.entries(m.breakdown).sort((a,b)=>b[1]-a[1]):[];const link=location.origin+'/app?ref='+(WALLET||'…');
+  return `<div class="two"><div>
+   <div class="statement" style="margin:0 0 24px"><div class="head"><span>Season ${s.n} · points → $FOLIO airdrop</span><b>${dl} days left · ends ${new Date(s.end).toISOString().slice(0,10)}</b></div>
+    <div class="stats"><div class="stat acc"><b>${fmt(s.pool/1e6,1)}M</b><span>$FOLIO airdrop pool (5% of supply)</span></div><div class="stat"><b>${fmt(s.total,0)}</b><span>points issued</span></div><div class="stat"><b>${s.players}</b><span>players</span></div><div class="stat"><b>${s.refs}</b><span>referrals</span></div></div></div>
+   <p style="color:var(--ink2);max-width:720px;margin:0 0 14px">Every dollar working in Folio earns points every 3 seconds — staked, locked, in the stability pool, or borrowed — plus points on every perp trade and dividend received. Points × your holder-boost × your daily streak. At season end the pool is split pro-rata to points.</p>
+   <table><thead><tr><th>Action</th><th class="num">Points</th></tr></thead><tbody>
+    <tr><td>Term-locked fUSD</td><td class="num">3 / $ / day (×1.3–2 by term)</td></tr><tr><td>Stability pool fUSD</td><td class="num">2 / $ / day</td></tr><tr><td>Borrowed fUSD (open debt)</td><td class="num">1.5 / $ / day</td></tr><tr><td>Staked sfUSD</td><td class="num">1 / $ / day</td></tr><tr><td>Perp trade</td><td class="num">0.5 / $100 notional</td></tr><tr><td>Dividend received</td><td class="num">25 / $ of stock</td></tr><tr><td>Daily check-in</td><td class="num">10 · streak +5%/day (max +50%)</td></tr><tr><td>Referral</td><td class="num">50 to referee · 10% of their points to you, forever</td></tr><tr><td>Holder boost</td><td class="num">× 1.5 / 2 / 2.5 / 3</td></tr></tbody></table>
+   <div style="margin-top:28px"><span class="kicker">Leaderboard</span><table><thead><tr><th>#</th><th>Wallet</th><th>Tier</th><th class="num">Points</th><th class="num">Est. $FOLIO</th></tr></thead><tbody>${s.board.map(r=>`<tr><td>${r.rank}</td><td>${r.w}</td><td><span class="tag">${r.tier}</span></td><td class="num">${fmt(r.pts,0)}</td><td class="num">${fmt(r.est,0)}</td></tr>`).join('')||'<tr><td colspan=5 style="color:var(--mut)">be first</td></tr>'}</tbody></table></div>
+  </div><aside>${m?`<div class="panel" style="border-color:var(--gold)"><span class="kicker">Your season</span><h3>#${m.rank||'—'} · ${fmt(m.pts,0)} pts</h3>
+   <div class="stats" style="border:1px solid var(--rule);margin:10px 0"><div class="stat acc"><b>${fmt(m.est,0)}</b><span>est. $FOLIO airdrop</span></div><div class="stat"><b>${(m.share*100).toFixed(2)}%</b><span>of all points</span></div><div class="stat"><b>${m.streak}d</b><span>streak · +${Math.min(50,m.streak*5)}%</span></div><div class="stat"><b>${me.boost.mult}×</b><span>${me.boost.name} boost</span></div></div>
+   <button class="btn acc" style="width:100%" ${m.canCheck?'':'disabled style="width:100%;opacity:.5"'} onclick="act('/api/checkin',{})">${m.canCheck?'Daily check-in · +10 pts':'Checked in today ✓'}</button>
+   <table style="margin-top:14px"><tbody>${brk.map(([k,v])=>`<tr><td>${k}</td><td class="num">${fmt(v,1)}</td></tr>`).join('')||'<tr><td style="color:var(--mut)">no points yet — stake, lock or trade</td></tr>'}</tbody></table>
+   <h3 style="margin-top:18px;font-size:18px">Refer &amp; earn 10% forever</h3><p style="font-size:11px;color:var(--mut)">Share your link. Referees get +50; you get 10% of every point they ever earn (${fmt(m.refPts,0)} so far).</p>
+   <div class="castrip" style="margin:6px 0;width:100%" onclick="navigator.clipboard.writeText('${link}');this.querySelector('em').textContent='copied';setTimeout(()=>this.querySelector('em').textContent='copy',1200)"><span>ref</span><code>${link}</code><em>copy</em></div>
+   ${m.ref?'<p style="font-size:11px;color:var(--mut)">referred by '+m.ref.slice(0,6)+'…'+m.ref.slice(-4)+'</p>':'<p style="font-size:11px"><a href="#" style="color:var(--gold)" onclick="event.preventDefault();const r=prompt(\'Referrer address\');if(r)act(\'/api/ref\',{ref:r.trim()})">Have a referrer? Enter address</a></p>'}
+  </div>`:'<div class="panel"><p style="color:var(--mut)">Connect a wallet to start earning points.</p></div>'}</aside></div>`;
+}
+function vAct(){return `<span class="kicker">Protocol ledger</span><table><thead><tr><th>Time</th><th>Type</th><th>Detail</th><th>Wallet</th></tr></thead><tbody>${S.events.map(e=>`<tr><td>${new Date(e.t).toISOString().slice(11,19)}</td><td><span class="tag ${e.k==='dividend'?'acc':''}">${e.k}</span></td><td>${e.m}</td><td>${e.w||''}</td></tr>`).join('')}</tbody></table>`}
+renderWallet();load();setInterval(load,4000);
+(function(){const r=new URLSearchParams(location.search).get('ref');if(r&&/^0x[a-fA-F0-9]{40}$/.test(r)){localStorage.setItem('folio_ref',r.toLowerCase());TAB='season';localStorage.setItem('folio_tab','season')}})();
+const _sw=setWallet;setWallet=function(w){_sw(w);const r=localStorage.getItem('folio_ref');if(r&&r!==WALLET){api('/api/ref',{wallet:WALLET,ref:r}).then(()=>{localStorage.removeItem('folio_ref');load()})}};
+</script></body></html>
