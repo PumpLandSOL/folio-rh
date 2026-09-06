@@ -2,7 +2,7 @@
 
 **A folio of stocks. A dollar that pays you back.** fUSD stock-collateral stablecoin + sfUSD + stability pool + 15-minute stock dividends + perps, on Robinhood Chain.
 
-- Site: https://foliorh.xyz · X: @FolioRH (placeholder — site `/x` redirects) · Ticker: **$FOLIO**
+- Site: https://foliorh.xyz · X: @FolioOnRH (placeholder — site `/x` redirects) · Ticker: **$FOLIO**
 
 ## Assets (`brand/`)
 | File | Size | Use |

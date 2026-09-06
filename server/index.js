@@ -390,7 +390,7 @@ http.createServer(async (req, res) => {
       epochs: h, holders: Object.values(db.users).filter((u) => u.folio > 0).length, users: Object.keys(db.users).length, pxHist: db.pxHist || [] }); }
     if (p === '/api/season') { const w = (url.searchParams.get('w') || '').toLowerCase(); return json(res, 200, seasonView(isWallet(w) ? user(w) : null)); }
     if (p === '/api/dividends') return json(res, 200, { mint: FOLIO_MINT, chain: CHAIN.ok, epoch: db.div.epoch, next: db.div.next, paid: db.div.paid, lp: db.div.lp, history: db.div.history });
-    if (p === '/x') { res.writeHead(302, { location: 'https://x.com/FolioRH' }); return res.end(); }
+    if (p === '/x') { res.writeHead(302, { location: 'https://x.com/FolioOnRH' }); return res.end(); }
     if (req.method === 'POST' && p.startsWith('/api/')) {
       const d = await body(req); const w = (d.wallet || '').toLowerCase(); if (!isWallet(w)) return json(res, 200, { error: 'connect a wallet first' });
       let r = null;

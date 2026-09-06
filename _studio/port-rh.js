@@ -56,7 +56,7 @@ s = rep(s, "add(u, 'USDT', -amt); add(u, 'fUSD', amt);", "add(u, 'USDG', -amt); 
 s = rep(s, "add(u, 'fUSD', -amt); add(u, 'USDT', amt);", "add(u, 'fUSD', -amt); add(u, 'USDG', amt);");
 s = rep(s, "bal(u, 'USDT') < amt", "bal(u, 'USDG') < amt");
 s = rep(s, "'USDT → fUSD' : 'fUSD → USDT'", "'USDG → fUSD' : 'fUSD → USDG'");
-s = rep(s, "location: 'https://x.com/FolioBNB'", "location: 'https://x.com/FolioRH'");
+s = rep(s, "location: 'https://x.com/FolioBNB'", "location: 'https://x.com/FolioOnRH'");
 s = rep(s, 'setInterval(pollPyth, 5000)', 'setInterval(pollPyth, 15000)');
 // any remaining token-symbol references
 s = s.split("'USDT'").join("'USDG'").split('"USDT"').join('"USDG"');
@@ -82,7 +82,7 @@ wr('client/app.html', a);
 console.log('app: refs left', (a.match(/BNB|bsc|USDT|0x38/g) || []).length);
 
 let ix = rd('client/index.html');
-ix = ix.split('https://foliobnb.xyz').join('https://foliorh.xyz').split('@FolioBNB').join('@FolioRH');
+ix = ix.split('https://foliobnb.xyz').join('https://foliorh.xyz').split('@FolioBNB').join('@FolioOnRH');
 ix = ix.replace(/<div class="castrip" onclick="navigator\.clipboard\.writeText\('0x2c4e63ead1936ba1fe963fa3cb918a7b34de7777'\)[^\n]*?<\/div>/, () => '<div id="castrip"></div>');
 ix = ix.split('<span>BNB Chain</span>').join('<span>Robinhood Chain</span>');
 ix = ix.split('BNB Chain (EVM). Connect any EVM wallet.').join('Robinhood Chain (EVM, chain id 4663). Connect any EVM wallet.');
@@ -112,7 +112,7 @@ console.log('proof: refs left', (pr.match(/BNB|bsc|USDT|Pyth/g) || []).length);
 // ── docs / kits ───────────────────────────────────────────────────────────────
 for (const f of ['README.md', 'BRAND-KIT.md', 'brand/X-KIT-V2.md']) {
   let t = rd(f);
-  t = t.split('foliobnb.xyz').join('foliorh.xyz').split('@FolioBNB').join('@FolioRH').split('BNB Chain').join('Robinhood Chain').split('BSC token address').join('Robinhood Chain token address').split('BscScan').join('the Robinhood Chain explorer').split('Pyth oracle').join('exchange-tape oracle').split('Pyth').join('the oracle').split('BNB').join('ETH').split('USDT').join('USDG').split('bnb chain').join('robinhood chain');
+  t = t.split('foliobnb.xyz').join('foliorh.xyz').split('@FolioBNB').join('@FolioOnRH').split('BNB Chain').join('Robinhood Chain').split('BSC token address').join('Robinhood Chain token address').split('BscScan').join('the Robinhood Chain explorer').split('Pyth oracle').join('exchange-tape oracle').split('Pyth').join('the oracle').split('BNB').join('ETH').split('USDT').join('USDG').split('bnb chain').join('robinhood chain');
   wr(f, t);
 }
 let pk = rd('package.json'); pk = pk.replace('"name":"folio"', '"name":"folio-rh"'); wr('package.json', pk);
