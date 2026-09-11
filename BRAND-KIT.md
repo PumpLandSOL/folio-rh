@@ -287,9 +287,9 @@ foliorh.xyz/app
 CA: 0x2a28d1654d64c1142c7c47324e802a7192837135
 ```
 
-**folio-v3.png · V3 launch** (302 chars)
+**folio-diamond.png / folio-diamond.mp4 · The Diamond Update** (321 chars)
 ```
-$FOLIO V3 is live.
+The Diamond Update is live on $FOLIO.
 
 HOLD STREAK: every hour you don't sell, your share of the stock airdrop grows +5%. 2× after 20 hours. Sell and it resets.
 

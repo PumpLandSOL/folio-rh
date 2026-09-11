@@ -1,5 +1,5 @@
 'use strict';
-// V3 announcement graphic → brand/folio-v3.png.  node _studio/v3.cjs
+// Diamond Update announcement graphic → brand/folio-diamond.png.  node _studio/v3.cjs
 const fs = require('fs'), path = require('path');
 const { shot } = require('./rec.cjs');
 const OUT = path.join(__dirname, 'out'); fs.mkdirSync(OUT, { recursive: true });
@@ -25,14 +25,14 @@ const html = `${head}
 .loop b{color:var(--gold2)}.loop i{font-style:normal;color:var(--mut)}
 .foot{display:flex;justify-content:space-between;font-size:30px;margin-top:34px;padding-top:26px;border-top:1px solid var(--rule)}
 </style></head><body><div class="stage"><div class="w">
-<div class="top">${mark(84)}<div class="caps" style="font-size:26px">$FOLIO · V3 · LIVE NOW</div></div>
+<div class="top">${mark(84)}<div class="caps" style="font-size:26px">$FOLIO · THE DIAMOND UPDATE · LIVE NOW</div></div>
 <div class="h serif">Don’t sell. <em>Get paid double.</em></div>
 <div class="two">
-  <div class="c"><div class="k caps">V3 · Hold streak</div><div class="v serif">+5% every hour you hold</div><div class="d">Your share of every hourly stock airdrop grows with every epoch you don’t sell. <b>2× weight after 20 hours.</b> Sell more than 5% and it resets to zero. Same pot. Bigger slice for diamond hands.</div>
+  <div class="c"><div class="k caps">Diamond Update · Hold streak</div><div class="v serif">+5% every hour you hold</div><div class="d">Your share of every hourly stock airdrop grows with every epoch you don’t sell. <b>2× weight after 20 hours.</b> Sell more than 5% and it resets to zero. Same pot. Bigger slice for diamond hands.</div>
     <div class="chart">${bars}</div><div class="lbl"><span>hour 1 · 1.05×</span><span>hour 10 · 1.5×</span><span>hour 20 · 2.0×</span></div></div>
-  <div class="c"><div class="k caps">V3 · Autofolio</div><div class="v serif">Dividends buy more dividends</div><div class="d">One toggle. Every stock airdrop is deposited as collateral, <b>half the new headroom minted as fUSD</b>, and staked at your boosted APY. The mint fee flows back into the pot you’re paid from. Your folio compounds every hour without you.</div>
+  <div class="c"><div class="k caps">Diamond Update · Autofolio</div><div class="v serif">Dividends buy more dividends</div><div class="d">One toggle. Every stock airdrop is deposited as collateral, <b>half the new headroom minted as fUSD</b>, and staked at your boosted APY. The mint fee flows back into the pot you’re paid from. Your folio compounds every hour without you.</div>
     <div class="loop"><b>stock airdrop</b><i>→</i><b>vault collateral</b><i>→</i><b>mint fUSD</b><i>→</i><b>stake sfUSD</b><i>→</i><b>fee → pot</b><i>→</i><b>stock airdrop</b></div></div>
 </div>
 <div class="foot"><span class="mono">foliorh.xyz/app</span><span class="mono" style="color:var(--ink2)">CA 0x2a28d1654d64c1142c7c47324e802a7192837135</span></div>
 </div></div></body></html>`;
-(async () => { const f = path.join(OUT, 'folio-v3.html'); fs.writeFileSync(f, html); await shot(f, path.join(BRAND, 'folio-v3.png'), 2400, 1350); console.log('✓ folio-v3.png'); })().catch((e) => { console.error(e); process.exit(1); });
+(async () => { const f = path.join(OUT, 'folio-diamond.html'); fs.writeFileSync(f, html); await shot(f, path.join(BRAND, 'folio-diamond.png'), 2400, 1350); console.log('✓ folio-diamond.png'); })().catch((e) => { console.error(e); process.exit(1); });
