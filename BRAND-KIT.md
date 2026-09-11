@@ -272,3 +272,17 @@ Treasury public. Perps live.
 foliorh.xyz/app
 CA: 0x2a28d1654d64c1142c7c47324e802a7192837135
 ```
+
+**folio-earn.png · bullish incentives update** (312 chars)
+```
+Hold $FOLIO → paid in real stock every hour
+Stake fUSD → up to 18% APY, boosted by your $FOLIO balance
+Lock fUSD → up to 50% APY
+Season 1 → 5% of supply to users, ends Nov 1
+Refer → 10% of their points forever
+
+Every fee comes back to you as stock.
+
+foliorh.xyz/app
+CA: 0x2a28d1654d64c1142c7c47324e802a7192837135
+```
