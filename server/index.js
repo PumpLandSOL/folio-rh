@@ -6,7 +6,7 @@ const http = require('http'), fs = require('fs'), path = require('path'), crypto
 const PORT = +process.env.PORT || 8190;
 const ROOT = path.join(__dirname, '..');
 const DATA_PATH = process.env.DATA_PATH || path.join(ROOT, 'data.json');
-const FOLIO_MINT = process.env.FOLIO_MINT || '';   // $FOLIO on Robinhood Chain — set at launch
+const FOLIO_MINT = process.env.FOLIO_MINT || '0x2a28d1654d64c1142c7c47324e802a7192837135';   // $FOLIO on Robinhood Chain — set at launch
 const TREASURY = (process.env.TREASURY || '0xB8E7837173d79aEC8DC150711deF5b8934dCD6B4').toLowerCase();
 const TOKENS = { USDG: { addr: '0x5fc5360D0400a0Fd4f2af552ADD042D716F1d168', dec: 6 } };  // USDG on Robinhood Chain (6 dp)
 const now = () => Date.now();

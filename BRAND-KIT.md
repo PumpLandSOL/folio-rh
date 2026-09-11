@@ -96,7 +96,7 @@ isolated vaults. liquidation at health < 1.0 — the stability pool burns the de
 ---
 
 ## LAUNCH DAY · 5 tweets ($FOLIO on Robinhood Chain) — 2026-09-11
-Post in order, ~1 hour apart. Pin tweet 1. Replace `CA` with the contract address once live (also set FOLIO_MINT on Render so the site CA strip renders).
+Post in order, ~1 hour apart. Pin tweet 1. CA baked into server default FOLIO_MINT.
 
 **1 · Launch (attach folio-hype.mp4 · pin)**
 ```
@@ -107,7 +107,7 @@ A folio of stocks. A dollar that pays you back.
 Mint fUSD against NVDA, AAPL, HOOD, SPY, ETH. Every hour protocol fees buy real stock and airdrop it to holders.
 
 foliorh.xyz
-CA: [CA]
+CA: 0x2a28d1654d64c1142c7c47324e802a7192837135
 ```
 
 **2 · How it works (attach folio-demo-mint.mp4)**
