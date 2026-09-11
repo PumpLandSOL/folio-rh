@@ -24,7 +24,8 @@ const P = {
   LIQ_DISCOUNT: 0.05,           // stability pool buys collateral 5% under oracle
   DIVIDEND_EPOCH: +(process.env.DIVIDEND_EPOCH_MS || 60 * 60e3),
   HOLD_STEP: 0.05, HOLD_MAX: 20,   // V3 hold streak: +5% dividend weight per consecutive epoch held, capped at 2× after 20 epochs; selling resets
-  AUTO_MINT_FRAC: 0.5,                 // V3 autofolio: mint 50% of new borrowing headroom from reinvested dividend stock, then stake it    // The Index cadence
+  AUTO_MINT_FRAC: 0.5,
+  VAULT: { share: 0.005, abs: 500000, mult: 4.0, days: 30 },   // Buy Loop: commit ≥0.5% of supply for 30 days → Vault tier 4× (above Diamond). Balance drops below the commitment → broken, streak reset.                 // V3 autofolio: mint 50% of new borrowing headroom from reinvested dividend stock, then stake it    // The Index cadence
   DIVIDEND_SPLIT: 0.4,          // 40% stock airdrop / 30% locked LP / 30% buyback&burn (V2)
   PERP_TAKER_FEE: 0.0006, PERP_MAINT: 0.005, PERP_LIQ_FEE: 0.005,
   FUNDING_INTERVAL: 3600e3, FUNDING_K: 0.0001,
@@ -261,8 +262,23 @@ function spWithdraw(w, sh) { const u = user(w); sh = Math.min(+sh, u.spShares); 
 
 
 // ---------- V2 · holder boost ----------
+const vaultNeed = () => CHAIN.ok && CHAIN.supply > 0 ? P.VAULT.share * CHAIN.supply : P.VAULT.abs;
+function vaultCheck(u) {   // a commitment is live while the wallet still holds ≥ the committed amount and the term has not ended
+  const v = u.vault; if (!v) return null;
+  if ((u.folio || 0) < v.amt) { delete u.vault; u.hstreak = 0; db.vaultStats = db.vaultStats || { broken: 0 }; db.vaultStats.broken++; ev('vault', 'Vault commitment BROKEN — balance fell below ' + Math.round(v.amt).toLocaleString() + ' $FOLIO · streak reset', u.wallet); save(); return null; }
+  return v;
+}
+const vaultActive = (u) => { const v = vaultCheck(u); return !!(v && now() < v.until); };
+function vaultCommit(w, amt) {
+  const u = user(w); amt = +amt; const need = vaultNeed(); if (!(amt >= need)) throw 'Vault needs a commitment of at least ' + Math.round(need).toLocaleString() + ' $FOLIO';
+  if ((u.folio || 0) < amt) throw 'wallet holds ' + Math.round(u.folio || 0).toLocaleString() + ' $FOLIO — buy more or commit less';
+  if (u.vault && now() < u.vault.until) throw 'already committed until ' + new Date(u.vault.until).toISOString().slice(0, 10);
+  u.vault = { amt, since: now(), until: now() + P.VAULT.days * 864e5 }; ev('vault', 'committed ' + Math.round(amt).toLocaleString() + ' $FOLIO for ' + P.VAULT.days + ' days → Vault tier ' + P.VAULT.mult + '×', u.wallet); save(); return u.vault;
+}
+function vaultRelease(w) { const u = user(w); if (!u.vault) throw 'no commitment'; if (now() < u.vault.until) throw 'committed until ' + new Date(u.vault.until).toISOString().slice(0, 10) + ' — breaking it early resets your streak: sell below the amount to break'; delete u.vault; ev('vault', 'commitment matured and released', u.wallet); save(); return { ok: true }; }
 function boostOf(u) {
   const T = P.BOOST_TIERS; let tier = T[0], i = 0;
+  if (vaultActive(u)) return { name: 'Vault', mult: P.VAULT.mult, idx: T.length, next: null, apy: P.STAKE_TARGET_APY * P.VAULT.mult, vault: true };
   if (CHAIN.ok && CHAIN.supply > 0) { const sh = (u.folio || 0) / CHAIN.supply; for (let k = 0; k < T.length; k++) if (sh >= T[k].share) { tier = T[k]; i = k; } }
   else { for (let k = 0; k < T.length; k++) if ((u.folio || 0) >= P.BOOST_ABS[k]) { tier = T[k]; i = k; } }
   const next = T[i + 1] || null;
@@ -331,12 +347,18 @@ function dividendTick() {
   for (const u of Object.values(db.users)) { if (u.folio > 0 && (u.hprev || 0) > 0 && u.folio >= u.hprev * 0.95) u.hstreak = (u.hstreak || 0) + 1; else u.hstreak = u.folio > 0 ? 1 : 0; u.hprev = u.folio; }
   const holders = Object.values(db.users).filter((u) => u.folio > 0); const wt = (u) => u.folio * streakMult(u); const tot = holders.reduce((a, u) => a + wt(u), 0);
   let autoN = 0, autoMinted = 0;
-  for (const u of holders) { const s = shares * wt(u) / tot; add(u, sym, s); u.divs[sym] = (u.divs[sym] || 0) + s; if (u.auto && u.auto.on) { autoN++; autoMinted += autofolio(u, sym, s); } }
+  let loopUsd = 0, loopFolio = 0, loopN = 0;
+  for (const u of holders) {
+    const usd = toStock * wt(u) / tot;
+    if (u.payout === 'folio' && FOLIO_PRICE > 0) { const f = usd / FOLIO_PRICE; u.divs.FOLIO = (u.divs.FOLIO || 0) + f; loopUsd += usd; loopFolio += f; loopN++; continue; }   // Buy Loop: this slice buys $FOLIO at market instead of stock
+    const s = usd / px; add(u, sym, s); u.divs[sym] = (u.divs[sym] || 0) + s; if (u.auto && u.auto.on) { autoN++; autoMinted += autofolio(u, sym, s); }
+  }
+  db.buyloop = db.buyloop || { usd: 0, folio: 0, epochs: 0 }; if (loopN) { db.buyloop.usd += loopUsd; db.buyloop.folio += loopFolio; db.buyloop.epochs++; }
   db.div.paid += toStock; for (const u of holders) ptsAdd(u, 'dividend', toStock * wt(u) / tot * P.PTS.dividend * 100);
   db.div.autoN = autoN; db.div.autoMinted = (db.div.autoMinted || 0) + autoMinted; db.div.maxStreak = Math.max(0, ...holders.map((u) => u.hstreak || 0));
-  const rec = { t, epoch: db.div.epoch, sym, usd: toStock, shares, px, holders: holders.length, lp: toLP, burn: toBurn, burnShare: BS.share, folioPx: FOLIO_PRICE, avg7: BS.avg, block: CHAIN.block, weight: tot, onchain: CHAIN.ok, autoN, autoMinted: Math.round(autoMinted * 100) / 100, maxStreak: db.div.maxStreak };
+  const rec = { t, epoch: db.div.epoch, sym, usd: toStock, shares, px, holders: holders.length, lp: toLP, burn: toBurn, burnShare: BS.share, folioPx: FOLIO_PRICE, avg7: BS.avg, block: CHAIN.block, weight: tot, onchain: CHAIN.ok, autoN, autoMinted: Math.round(autoMinted * 100) / 100, maxStreak: db.div.maxStreak, loop: { n: loopN, usd: Math.round(loopUsd * 100) / 100, folio: Math.round(loopFolio * 100) / 100, px: FOLIO_PRICE } };
   rec.receipt = crypto.createHash('sha256').update(JSON.stringify(rec)).digest('hex'); db.div.history.unshift(rec); if (db.div.history.length > 96) db.div.history.pop();
-  ev('dividend', `epoch ${db.div.epoch}: ${toStock.toFixed(2)} of ${sym} airdropped to ${holders.length} holders · ${toLP.toFixed(2)} → LP · ${toBurn.toFixed(2)} → $FOLIO buyback & burn`); save();
+  ev('dividend', `epoch ${db.div.epoch}: ${toStock.toFixed(2)} of ${sym} airdropped to ${holders.length - loopN} holders · ${loopN ? loopUsd.toFixed(2) + ' bought $FOLIO for ' + loopN + ' Buy Loop wallets · ' : ''} ${toLP.toFixed(2)} → LP · ${toBurn.toFixed(2)} → $FOLIO buyback & burn`); save();
 }
 
 // ---------- perps ----------
@@ -380,7 +402,7 @@ function protocolView() {
   const perpOI = Object.values(db.positions).reduce((a, p) => a + p.size * (PX[p.sym] || 0), 0);
   return { t: now(), ok: PRICE_OK, px: PX, params: P, markets: byMkt, perps: Object.keys(PERPS).map((s) => ({ sym: s, px: PX[s] || 0, maxLev: PERPS[s], funding: db.funding[s] || { rate: 0, longOI: 0, shortOI: 0 } })),
     supply: db.supply, tvl, backing: db.supply > 0 ? tvl / db.supply : 0, psm: db.psmUSDG, surplus: db.surplus, stake: { pool: db.stake.pool, pps: stakePPS(), apy: P.STAKE_TARGET_APY, maxApy: P.STAKE_TARGET_APY * P.BOOST_TIERS[P.BOOST_TIERS.length - 1].mult }, locks: { terms: P.LOCK_TERMS, tvl: Object.values(db.locks).reduce((a, L) => a + L.amt, 0), n: Object.keys(db.locks).length, penalty: P.LOCK_EARLY_PENALTY }, burn: { ...db.burn, dyn: burnShare(), max: P.BURN_MAX, base: P.BUYBACK_SPLIT }, tiers: P.BOOST_TIERS, season: seasonView(null), sp: { pool: db.sp.pool, gains: db.sp.gains },
-    div: { ...db.div, next: db.div.next || 0, revenue: db.div.revenue, streak: { step: P.HOLD_STEP, cap: P.HOLD_MAX, max: 1 + P.HOLD_STEP * P.HOLD_MAX }, autoUsers: Object.values(db.users).filter((u) => u.auto && u.auto.on).length }, perpOI, perpFees: db.perpFees, liqs: db.liqs.slice(0, 20), events: db.events.slice(0, 40), users: Object.keys(db.users).length, treasury: { addr: TREASURY, onchain: CHAIN.treasury || null, credited: db.treasury || {}, tokens: { USDG: TOKENS.USDG.addr } }, folio: { mint: FOLIO_MINT, price: FOLIO_PRICE, chain: { ok: CHAIN.ok, supply: CHAIN.supply, symbol: CHAIN.symbol, block: CHAIN.block, rpc: CHAIN.rpc, holdersRead: CHAIN.checked, lastRead: CHAIN.lastRead, decimals: CHAIN.decimals } } };
+    div: { ...db.div, next: db.div.next || 0, revenue: db.div.revenue, streak: { step: P.HOLD_STEP, cap: P.HOLD_MAX, max: 1 + P.HOLD_STEP * P.HOLD_MAX }, autoUsers: Object.values(db.users).filter((u) => u.auto && u.auto.on).length, loopUsers: Object.values(db.users).filter((u) => u.payout === 'folio').length }, buyloop: db.buyloop || { usd: 0, folio: 0, epochs: 0 }, vault: { ...P.VAULT, need: vaultNeed(), active: Object.values(db.users).filter((u) => u.vault && now() < u.vault.until).length, committed: Object.values(db.users).reduce((a, u) => a + (u.vault && now() < u.vault.until ? u.vault.amt : 0), 0), broken: (db.vaultStats || {}).broken || 0 }, perpOI, perpFees: db.perpFees, liqs: db.liqs.slice(0, 20), events: db.events.slice(0, 40), users: Object.keys(db.users).length, treasury: { addr: TREASURY, onchain: CHAIN.treasury || null, credited: db.treasury || {}, tokens: { USDG: TOKENS.USDG.addr } }, folio: { mint: FOLIO_MINT, price: FOLIO_PRICE, chain: { ok: CHAIN.ok, supply: CHAIN.supply, symbol: CHAIN.symbol, block: CHAIN.block, rpc: CHAIN.rpc, holdersRead: CHAIN.checked, lastRead: CHAIN.lastRead, decimals: CHAIN.decimals } } };
 }
 function meView(w) {
   const u = user(w); const vaults = Object.values(db.vaults).filter((v) => v.wallet === u.wallet).map((v) => { accrue(v); return vaultView(v); });
@@ -388,7 +410,7 @@ function meView(w) {
   const sfusd = u.sShares * stakePPS(); const spVal = db.sp.shares > 0 ? db.sp.pool * u.spShares / db.sp.shares : 0;
   const locks = Object.values(db.locks).filter((L) => L.wallet === u.wallet).map(lockView);
   const nav = Object.entries(u.bal).reduce((a, [s, v]) => a + v * (s === 'fUSD' ? 1 : (PX[s] || 0)), 0) + vaults.reduce((a, v) => a + v.collValue - v.debt, 0) + sfusd + spVal + positions.reduce((a, p) => a + p.eq, 0) + locks.reduce((a, L) => a + L.value, 0);
-  return { wallet: u.wallet, bal: u.bal, boost: boostOf(u), locks, lockVal: locks.reduce((a, L) => a + L.value, 0), boostEarned: u.boostEarned || 0, season: seasonView(u).me, deposited: u.deposited || {}, folio: u.folio, streak: { epochs: u.hstreak || 0, mult: streakMult(u), max: 1 + P.HOLD_STEP * P.HOLD_MAX, step: P.HOLD_STEP, cap: P.HOLD_MAX }, auto: u.auto || { on: false, epochs: 0, shares: 0, minted: 0 }, folioShare: CHAIN.supply > 0 ? u.folio / CHAIN.supply : 0, onchain: CHAIN.ok && !!CHAIN.holders[u.wallet], vaults, positions, sfusd, sShares: u.sShares, spVal, spShares: u.spShares, divs: u.divs, pnl: u.pnl, nav };
+  return { wallet: u.wallet, bal: u.bal, boost: boostOf(u), locks, lockVal: locks.reduce((a, L) => a + L.value, 0), boostEarned: u.boostEarned || 0, season: seasonView(u).me, deposited: u.deposited || {}, folio: u.folio, streak: { epochs: u.hstreak || 0, mult: streakMult(u), max: 1 + P.HOLD_STEP * P.HOLD_MAX, step: P.HOLD_STEP, cap: P.HOLD_MAX }, auto: u.auto || { on: false, epochs: 0, shares: 0, minted: 0 }, payout: u.payout || 'stock', vault: { active: vaultActive(u), amt: u.vault ? u.vault.amt : 0, until: u.vault ? u.vault.until : 0, need: vaultNeed(), mult: P.VAULT.mult, days: P.VAULT.days }, folioShare: CHAIN.supply > 0 ? u.folio / CHAIN.supply : 0, onchain: CHAIN.ok && !!CHAIN.holders[u.wallet], vaults, positions, sfusd, sShares: u.sShares, spVal, spShares: u.spShares, divs: u.divs, pnl: u.pnl, nav };
 }
 
 // ---------- http ----------
@@ -427,6 +449,10 @@ http.createServer(async (req, res) => {
         case '/api/lock': r = lock(w, d.amount, d.days); break;
         case '/api/unlock': r = unlock(w, d.id); break;
         case '/api/checkin': r = checkin(w); break;
+        case '/api/payout': { const u = user(w); u.payout = d.mode === 'folio' ? 'folio' : 'stock'; ev('payout', 'dividends now paid in ' + (u.payout === 'folio' ? '$FOLIO (Buy Loop)' : 'stock'), u.wallet); save(); r = { payout: u.payout }; break; }
+        case '/api/vault/commit': r = vaultCommit(w, d.amount); break;
+        case '/api/vault/release': r = vaultRelease(w); break;
+        case '/api/dev/folio': if (process.env.DEV !== '1') throw 'no'; { const u = user(w); u.folio = +d.amount; save(); r = { folio: u.folio }; } break;
         case '/api/auto': { const u = user(w); u.auto = u.auto || { on: false, epochs: 0, shares: 0, minted: 0 }; u.auto.on = !!d.on; ev('auto', 'autofolio ' + (u.auto.on ? 'ON — dividends reinvest as collateral' : 'off'), u.wallet); save(); r = u.auto; break; }
         case '/api/ref': setRef(w, d.ref); break;
         default: return json(res, 404, { error: 'unknown' });
