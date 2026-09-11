@@ -308,16 +308,16 @@ CA 0x56910D4409F3a0C78C64DD8D0545FF0705389870 · supply 1B · GeckoTerminal dail
 - Launch-week wicks ($0.21 / $1.59 / $3.34 on Jul 11–14) are thin-liquidity prints on $0–$750 volume; not a real ATH.
 - $FOLIO at check: mcap ≈ $29.6K, liq ≈ $16K. 1% of INDEX ATH = $750K (≈25×); INDEX ATH = ≈2,560×.
 
-**folio-vs-nest-index.png · INDEX comparison** (280 chars)
+**folio-vs-index.png · INDEX comparison** (253 chars)
 ```
 $INDEX hit $76M paying stock dividends. Nothing else.
 
 $FOLIO pays the same hourly dividend, plus:
-fUSD, backed by stocks
+fUSD backed by stocks
 sfUSD to 18%, locks to 50%
-perps on the collateral
+perps
 30% burn
-hold streak → 2× airdrop
+hold streak → 2×
 
 $FOLIO: $30K
 
