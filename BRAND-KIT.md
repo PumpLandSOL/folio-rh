@@ -325,13 +325,13 @@ foliorh.xyz/app
 0x2a28d1654d64c1142c7c47324e802a7192837135
 ```
 
-**folio-buyloop.png / folio-buyloop.mp4 · The Buy Loop** (250 chars)
+**folio-buyloop.png / folio-buyloop.mp4 · The Buy Loop** (244 chars)
 ```
 The Buy Loop is live on $FOLIO.
 
 PAID IN $FOLIO: one switch and your hourly dividend buys $FOLIO at market. Every wallet on the loop is a buy, 24×/day.
 
-VAULT: 0.5% of supply, 30d → 4× yield
+VAULT: 0.5% of supply, 30d → 4×
 
 foliorh.xyz/app
 0x2a28d1654d64c1142c7c47324e802a7192837135
