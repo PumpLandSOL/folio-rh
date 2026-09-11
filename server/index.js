@@ -7,7 +7,7 @@ const PORT = +process.env.PORT || 8190;
 const ROOT = path.join(__dirname, '..');
 const DATA_PATH = process.env.DATA_PATH || path.join(ROOT, 'data.json');
 const FOLIO_MINT = process.env.FOLIO_MINT || '';   // $FOLIO on Robinhood Chain — set at launch
-const TREASURY = (process.env.TREASURY || '0x3a0Ef3B70531Ae579810644CF287F82fD9BB9c8F').toLowerCase();
+const TREASURY = (process.env.TREASURY || '0x2a28d1654d64c1142c7c47324e802a7192837135').toLowerCase();
 const TOKENS = { USDG: { addr: '0x5fc5360D0400a0Fd4f2af552ADD042D716F1d168', dec: 6 } };  // USDG on Robinhood Chain (6 dp)
 const now = () => Date.now();
 const isWallet = (s) => /^0x[a-fA-F0-9]{40}$/.test(s || '');
