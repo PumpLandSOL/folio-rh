@@ -38,7 +38,7 @@ const html = `<!doctype html><html><head><meta charset="utf-8">${FONTS}<style>${
    <text x="${X(0)-10}" y="${Y(30)+20}" font-size="12" fill="#00a344" text-anchor="end">30% · base</text>
    <text x="320" y="288" font-size="11" fill="#7d7d78" text-anchor="middle">$FOLIO price vs. 7-day average</text>
   </svg>
-  <p style="margin-top:6px">Read at the top of every 15-minute epoch from the live market price. The extra comes out of the LP share; the 40% stock airdrop to holders never shrinks. <b>The protocol buys hardest when the chart is weakest.</b> The share used is written into each epoch's receipt.</p>
+  <p style="margin-top:6px">Read at the top of every hourly epoch from the live market price. The extra comes out of the LP share; the 40% stock airdrop to holders never shrinks. <b>The protocol buys hardest when the chart is weakest.</b> The share used is written into each epoch's receipt.</p>
  </div>
  <div class="card"><span class="caps" style="font-size:11px">foliorh.xyz/proof · live</span><h3>Verify, don't trust.</h3>
   <div class="row"><span>Treasury balances · ETH / USDG / $FOLIO</span><span class="on">on-chain</span></div>
@@ -46,7 +46,7 @@ const html = `<!doctype html><html><head><meta charset="utf-8">${FONTS}<style>${
   <div class="row"><span>Holder weights · ERC-20 balanceOf</span><span class="on">on-chain</span></div>
   <div class="row"><span>Collateral &amp; perp marks · the oracle</span><span class="on">oracle</span></div>
   <div class="row"><span>Fees in → stock / LP / burn, all-time</span><span class="ld">receipted</span></div>
-  <div class="row"><span>Every 15-min epoch · block-pinned SHA-256</span><span class="ld">receipted</span></div>
+  <div class="row"><span>Every hourly epoch · block-pinned SHA-256</span><span class="ld">receipted</span></div>
   <div class="row"><span>Live dynamic-burn meter + 7-day chart</span><span class="ld">live</span></div>
   <div class="row" style="border-bottom:1px solid var(--rule)"><span>What is on-chain vs. ledger — stated plainly</span><span class="ld">stated</span></div>
   <p style="margin-top:14px">One page. Treasury wallet linked to the explorer. Every receipt, every tx, every dollar in and out. JSON at <span style="font-family:'JetBrains Mono'">/api/proof</span>.</p>

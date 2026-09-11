@@ -27,7 +27,7 @@ const fly = wrap('V2 · the flywheel', 'Every fee feeds four engines. <em>Holdin
  <div class="card" style="display:flex;flex-direction:column;justify-content:space-between">
   <div><span class="caps" style="font-size:11px">Revenue in</span><h3>Origination · stability fee · perp taker · liquidation</h3><p>Every action in the protocol — mint, borrow, trade, liquidate — lands in one pot. Nothing is skimmed by a team wallet.</p></div>
   <div style="margin:22px 0;height:1px;background:var(--rule)"></div>
-  <div><span class="caps" style="font-size:11px">Every 15 minutes, the pot splits</span>
+  <div><span class="caps" style="font-size:11px">Every hour, the pot splits</span>
    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:12px">
     <div style="border:1px solid var(--rule);padding:16px"><div class="big g">40%</div><p style="margin-top:6px">buys real tokenized stock at oracle, airdropped to $FOLIO holders</p></div>
     <div style="border:1px solid var(--rule);padding:16px"><div class="big">30%</div><p style="margin-top:6px">deepens locked FOLIO liquidity</p></div>
@@ -55,15 +55,15 @@ const boost = wrap('V2 · holder boost', 'Your on-chain balance is the multiplie
 </div>`, 'sfUSD stays a single share token: boost is minted as extra sfUSD shares to the holder every 3-second tick, funded from protocol surplus.');
 
 // 3 · burn
-const burn = wrap('V2 · buyback &amp; burn', '30% of all revenue buys back $FOLIO. <em>Every 15 minutes. Forever.</em>', `
+const burn = wrap('V2 · buyback &amp; burn', '30% of all revenue buys back $FOLIO. <em>Every hour. Forever.</em>', `
 <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:20px;margin-bottom:20px">
  <div class="card"><span class="caps" style="font-size:11px">Old split · V1</span><div class="big" style="margin:8px 0">50 / 50</div><p>Half to stock airdrop, half to locked LP. Zero supply pressure on the token.</p></div>
  <div class="card" style="border-color:var(--gold)"><span class="caps" style="font-size:11px">New split · V2</span><div class="big" style="margin:8px 0"><span class="g">40</span> / 30 / <span class="r">30</span></div><p>Stock airdrop / locked LP / <b class="r">$FOLIO buyback &amp; burn</b>. Plus every early-lock-exit penalty is burned too.</p></div>
- <div class="card"><span class="caps" style="font-size:11px">Cadence</span><div class="big" style="margin:8px 0">96×<span style="font-size:28px"> / day</span></div><p>One burn allocation per dividend epoch, tallied in fUSD and in $FOLIO at market. Live ledger on the Dividends tab.</p></div>
+ <div class="card"><span class="caps" style="font-size:11px">Cadence</span><div class="big" style="margin:8px 0">24×<span style="font-size:28px"> / day</span></div><p>One burn allocation per dividend epoch, tallied in fUSD and in $FOLIO at market. Live ledger on the Dividends tab.</p></div>
 </div>
 <div class="card" style="display:grid;grid-template-columns:1fr 1fr;gap:30px">
  <div><span class="caps" style="font-size:11px">Two-sided pressure on one token</span><h3>Demand up. Supply down. Same fee.</h3><p>The same fee that funds a stock airdrop <i>to</i> holders now also removes $FOLIO from circulation. Holders get paid in NVDA and the float shrinks — from the same 15-minute epoch.</p></div>
- <div><span class="caps" style="font-size:11px">Sources of the burn</span><p style="font-family:'JetBrains Mono';font-size:15px;line-height:1.9;margin-top:6px">• 30% of every 15-min revenue epoch<br>• 10% of principal on early lock exits<br>• sfUSD exit fees (one day of APR)<br>• No team allocation, no unlock schedule</p></div>
+ <div><span class="caps" style="font-size:11px">Sources of the burn</span><p style="font-family:'JetBrains Mono';font-size:15px;line-height:1.9;margin-top:6px">• 30% of every hourly revenue epoch<br>• 10% of principal on early lock exits<br>• sfUSD exit fees (one day of APR)<br>• No team allocation, no unlock schedule</p></div>
 </div>`, 'Buyback allocations are executed from the treasury at market. Nothing here is financial advice.');
 
 (async () => {

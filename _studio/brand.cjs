@@ -38,10 +38,10 @@ A['folio-wordmark'] = [2400, 800, page(2400, 800, `.w{position:absolute;inset:0;
   `<div class="w">${mark(400)}<div class="t"><b class="serif">Folio</b><small class="caps">a folio of stocks · a dollar that pays</small></div></div>`)];
 // Banner 3000x1000
 A['folio-banner'] = [3000, 1000, page(3000, 1000, `.l{position:absolute;left:180px;top:0;bottom:0;display:flex;flex-direction:column;justify-content:center;max-width:1750px}.h{font-size:158px}.s{margin-top:44px;font-size:34px;color:var(--ink2)}.p{position:absolute;right:180px;bottom:84px;font-size:28px}.r{position:absolute;right:220px;top:50%;transform:translateY(-50%);opacity:.9}.ln{position:absolute;left:180px;right:180px;top:120px}`,
-  `<div class="ln rule"></div><div class="r">${mark(560)}</div><div class="l"><div class="serif h">A folio of stocks.<br>A dollar that <em>pays you back.</em></div><div class="s mono">fUSD · sfUSD · stability pool · 15-min stock dividends · perps · Robinhood Chain</div></div><div class="p caps">foliorh.xyz · $FOLIO</div>`)];
+  `<div class="ln rule"></div><div class="r">${mark(560)}</div><div class="l"><div class="serif h">A folio of stocks.<br>A dollar that <em>pays you back.</em></div><div class="s mono">fUSD · sfUSD · stability pool · hourly stock dividends · perps · Robinhood Chain</div></div><div class="p caps">foliorh.xyz · $FOLIO</div>`)];
 // OG 2400x1260
 A['folio-og'] = [2400, 1260, page(2400, 1260, `.l{position:absolute;left:150px;top:0;bottom:0;display:flex;flex-direction:column;justify-content:center;max-width:1450px}.h{font-size:150px}.s{margin-top:44px;font-size:36px;color:var(--ink2);line-height:1.45}.r{position:absolute;right:150px;top:50%;transform:translateY(-50%)}.f{position:absolute;left:150px;bottom:80px;font-size:28px}.ln{position:absolute;left:150px;right:150px;top:110px}`,
-  `<div class="ln rule"></div><div class="r">${mark(520)}</div><div class="l"><div class="serif h">Your stocks,<br><em>working.</em></div><div class="s">Mint fUSD against tokenized equities & ETH. Stake it. Every 15 minutes, protocol revenue buys stock and pays $FOLIO holders.</div></div><div class="f caps">foliorh.xyz</div>`)];
+  `<div class="ln rule"></div><div class="r">${mark(520)}</div><div class="l"><div class="serif h">Your stocks,<br><em>working.</em></div><div class="s">Mint fUSD against tokenized equities & ETH. Stake it. Every hour, protocol revenue buys stock and pays $FOLIO holders.</div></div><div class="f caps">foliorh.xyz</div>`)];
 // Ledger explainer 2400x1350 — the five-step loop
 const row = (n, name, desc, val, sub) => `<div class="lr"><span class="mono no">${n}</span><span class="serif nm">${name}</span><span class="ds">${desc}</span><span class="serif vl">${val}<small class="caps">${sub}</small></span></div>`;
 A['folio-ledger'] = [2400, 1350, page(2400, 1350, `.w{position:absolute;inset:0;padding:110px 150px}.ey{font-size:28px;margin-bottom:26px}.h{font-size:104px;margin-bottom:64px}.lr{display:grid;grid-template-columns:90px 300px 1fr 360px;align-items:center;gap:40px;padding:34px 0;border-top:1px solid var(--rule)}.lr:last-child{border-bottom:1px solid var(--rule)}.no{color:var(--gold);font-size:26px}.nm{font-size:56px}.ds{font-size:29px;color:var(--ink2);line-height:1.4}.vl{font-size:64px;text-align:right}.vl small{display:block;font-size:20px;margin-top:4px}`,
@@ -49,7 +49,7 @@ A['folio-ledger'] = [2400, 1350, page(2400, 1350, `.w{position:absolute;inset:0;
   ${row('01', 'Hold', 'fUSD backed by tokenized equities, ETH and USDG. Redeemable 1:1 through the PSM.', '$1.00', 'target peg')}
   ${row('02', 'Stake', 'sfUSD accretes stability fees first, surplus buffer second. Exit fee burned.', '6.00%', 'est. apy')}
   ${row('03', 'Backstop', 'Stability pool burns bad debt and takes collateral 5% under oracle.', '5%', 'liq. discount')}
-  ${row('04', 'Dividend', 'All protocol revenue: 50% buys stock at oracle → airdropped to $FOLIO holders. 50% locked LP.', '15 min', 'every epoch')}
+  ${row('04', 'Dividend', 'All protocol revenue: 50% buys stock at oracle → airdropped to $FOLIO holders. 50% locked LP.', '1 hour', 'every epoch')}
   ${row('05', 'Trade', 'Perps on stocks & crypto with fUSD margin. Fees flow back into the dividend engine.', '25×', 'max leverage')}
   </div>`)];
 // Markets 2400x1350 — collateral tiers (Arrow-style)
@@ -63,7 +63,7 @@ A['folio-perps'] = [2400, 1350, page(2400, 1350, `.w{position:absolute;inset:0;p
   `<div class="r">${seal('h', 360, .7, 'stroke:#0f2e19')}</div><div class="w"><div class="ey caps">Perpetuals · fUSD margin</div><div class="serif h">Trade the folio.<br><em>Fund the dividend.</em></div><div class="row">
   <div class="k"><b>25×</b><span>crypto · 10× stocks</span><p>Tape mark, isolated margin, hourly funding — longs pay shorts when long OI dominates.</p></div>
   <div class="k"><b>0.06%</b><span>taker fee</span><p>Every perp fee lands in the revenue pot alongside origination, stability and liquidation fees.</p></div>
-  <div class="k"><b>50 / 50</b><span>stock airdrop · locked LP</span><p>Each 15-minute epoch buys NVDA → AAPL → GOOGL → HOOD → META → SPY at oracle and pays $FOLIO holders pro-rata.</p></div>
+  <div class="k"><b>50 / 50</b><span>stock airdrop · locked LP</span><p>Each hourly epoch buys NVDA → AAPL → GOOGL → HOOD → META → SPY at oracle and pays $FOLIO holders pro-rata.</p></div>
   </div><div class="f mono">foliorh.xyz · Robinhood Chain · $FOLIO</div></div>`, true)];
 
 (async () => {

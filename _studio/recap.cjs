@@ -9,13 +9,13 @@ const Y = '<span class="y">✓</span>', N = '<span class="n">—</span>';
 const rows = [
   ['Stock-collateral stablecoin', Y + ' fUSD · Robinhood Chain', Y + ' nUSD · Solana', 'V1'],
   ['Staked yield', Y + ' 6% → <b>18%</b> holder-boosted', '6% target', 'V2'],
-  ['15-min stock dividends to holders', Y + ' NVDA · AAPL · GOOGL · HOOD · META · SPY', N, 'V1'],
+  ['hourly stock dividends to holders', Y + ' NVDA · AAPL · GOOGL · HOOD · META · SPY', N, 'V1'],
   ['Stability pool backstop', Y, N, 'V1'],
   ['Perps margined in the stable', Y + ' up to 25×', N, 'V1'],
   ['Holder boost tiers', Y + ' <b>1.5× → 3×</b> on every yield, read on-chain', N, 'V2'],
   ['Term locks', Y + ' 12 → 50% base · <b>to 150%</b>', N, 'V2'],
   ['Season points · airdrop', Y + ' <b>5% of supply</b> · referrals 10% forever', N, 'V2'],
-  ['Token buyback &amp; burn', Y + ' <b>30% of revenue</b>, every 15 min', N, 'V2'],
+  ['Token buyback &amp; burn', Y + ' <b>30% of revenue</b>, every hour', N, 'V2'],
   ['Dynamic burn', Y + ' <b>→ 60%</b> when price &lt; 7-day avg', N, 'V2.1'],
   ['Public proof page', Y + ' treasury · receipts · burn meter', N, 'V2.1'],
 ];

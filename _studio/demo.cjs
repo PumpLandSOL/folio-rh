@@ -1,6 +1,6 @@
 // FOLIO tech demos (15s each) against the running local app.
 //   node _studio/demo.cjs mint     → brand/folio-demo-mint.mp4   (mint fUSD → stake → sfUSD)
-//   node _studio/demo.cjs perps    → brand/folio-demo-perps.mp4  (open a perp → fees → 15-min dividend)
+//   node _studio/demo.cjs perps    → brand/folio-demo-perps.mp4  (open a perp → fees → hourly dividend)
 const path = require('path');
 const { record } = require('./rec.cjs');
 const OVERLAY = require('./overlay.cjs');
@@ -51,7 +51,7 @@ const scripts = {
     await ev("window.__cursorTo('text:buy / long')"); await sleep(500);
     await ev("window.__click('text:buy / long')"); await sleep(1500);
     await ev("window.__cap('03 · open','Position live at Tape mark. The 0.06% fee just landed in the <b>revenue pot.</b>')"); await sleep(1600);
-    await ev("window.__cap('04 · every 15 minutes','Revenue → 50% buys stock at oracle, airdropped to $FOLIO holders. <b>50% locked LP.</b>')");
+    await ev("window.__cap('04 · every hour','Revenue → 50% buys stock at oracle, airdropped to $FOLIO holders. <b>50% locked LP.</b>')");
     await ev("window.__cursorTo('#tabs button:nth-child(3)')"); await sleep(500);
     await ev("window.__click('#tabs button:nth-child(3)')"); await sleep(2200);
     await ev("window.__capHide()"); await sleep(200);
