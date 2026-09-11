@@ -259,3 +259,16 @@ Hold and get paid in NVDA.
 foliorh.xyz/app
 CA: 0x2a28d1654d64c1142c7c47324e802a7192837135
 ```
+
+**folio-armed.png · bullish status update** (275 chars)
+```
+$FOLIO: every engine is armed.
+
+CA live → holder boost reads your balance on-chain, up to 3×
+Hourly dividends buying real stock for holders
+30% of revenue → buyback & burn, receipted
+Treasury public. Perps live.
+
+foliorh.xyz/app
+CA: 0x2a28d1654d64c1142c7c47324e802a7192837135
+```
