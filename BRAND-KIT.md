@@ -160,3 +160,102 @@ foliorh.xyz/app
 ```
 
 Reply under tweet 1: "Not financial advice. Overcollateralized lending, leveraged trading and locked deposits can lose money."
+
+---
+
+## MORE TWEETS · unused assets (2026-09-11)
+
+**folio-ledger.png** (258 chars)
+```
+One dollar. Five lines.
+
+Hold fUSD, backed by stock, redeemable 1:1
+Stake → sfUSD earns borrower fees
+Backstop the stability pool, take liquidations at a discount
+Dividend: hourly stock airdrop to $FOLIO holders
+Trade perps on the collateral
+
+foliorh.xyz/app
+```
+
+**folio-markets.png** (224 chars)
+```
+What backs fUSD, and at what LTV:
+
+Stables 90%
+ETH 75%
+Tier 1 stocks (SPY, AAPL, NVDA) 55%
+Tier 2 (HOOD, COIN, MSTR) 40%
+
+Isolated vaults. Exchange-tape oracle. Overcollateralized by design, not by promise.
+
+foliorh.xyz/docs
+```
+
+**folio-perps.png** (226 chars)
+```
+Trade the folio. Fund the dividend.
+
+Perps on the same stocks that back fUSD. HOOD, NVDA, TSLA, SPY to 10×. BTC, ETH, SOL to 25×. fUSD margin.
+
+Every fee lands in the pot that pays holders in stock every hour.
+
+foliorh.xyz/app
+```
+
+**folio-vs-nest-index.png** (215 chars)
+```
+Nest: stock-backed dollar, no dividend.
+Arrow: tiered CDPs, no stock.
+The Index: stock dividends, no stablecoin.
+
+Folio is all three on one chain, and adds perps, holder boost and an hourly $FOLIO burn.
+
+foliorh.xyz
+```
+
+**folio-recap-vs-nest.png** (212 chars)
+```
+The recap, side by side.
+
+fUSD backed by tokenized stock. sfUSD to 18%. Stability pool. Hourly stock dividends. 30% of revenue burns $FOLIO. Perps on the collateral.
+
+One protocol on Robinhood Chain.
+
+foliorh.xyz
+```
+
+**folio-v21-proof.png** (165 chars)
+```
+Verify, don't trust.
+
+The treasury wallet is public. Every hourly epoch is receipted with the block it was pinned to. Every burn is on the ledger.
+
+foliorh.xyz/proof
+```
+
+**folio-v2.mp4** (216 chars)
+```
+Hold $FOLIO → up to 3× on every yield in the protocol.
+
+sfUSD 6% → 18%
+Term locks to 50%
+Season 1: 5% of supply to points holders
+30% of revenue buys back & burns $FOLIO
+
+Same fUSD. Now it compounds.
+
+foliorh.xyz/app
+```
+
+**folio-update.mp4** (245 chars)
+```
+Fees are already buying stock.
+
+Every mint, borrow, trade and liquidation feeds one pot. Every hour it buys real stock and airdrops it to $FOLIO holders.
+
+Hold and get paid in NVDA.
+
+foliorh.xyz/app
+CA: 0x2a28d1654d64c1142c7c47324e802a7192837135
+```
