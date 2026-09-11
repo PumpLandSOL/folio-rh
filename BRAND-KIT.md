@@ -325,13 +325,13 @@ foliorh.xyz/app
 0x2a28d1654d64c1142c7c47324e802a7192837135
 ```
 
-**folio-buyloop.png / folio-buyloop.mp4 · The Buy Loop** (328 chars)
+**folio-buyloop.png / folio-buyloop.mp4 · The Buy Loop** (298 chars)
 ```
 The Buy Loop is live on $FOLIO.
 
-PAID IN $FOLIO: flip one switch and your hourly dividend buys $FOLIO at market instead of stock. Every wallet on the loop is a buy, 24× a day.
+PAID IN $FOLIO: one switch and your hourly dividend buys $FOLIO at market instead of stock. Every wallet on the loop is a buy, 24× a day.
 
-VAULT TIER: commit 0.5% of supply for 30 days → 4× on every yield. Break it, streak resets.
+VAULT TIER: commit 0.5% of supply for 30 days → 4× on every yield.
 
 foliorh.xyz/app
 0x2a28d1654d64c1142c7c47324e802a7192837135
