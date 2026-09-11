@@ -286,3 +286,15 @@ Every fee comes back as stock.
 foliorh.xyz/app
 CA: 0x2a28d1654d64c1142c7c47324e802a7192837135
 ```
+
+**folio-v3.png · V3 launch** (302 chars)
+```
+$FOLIO V3 is live.
+
+HOLD STREAK: every hour you don't sell, your share of the stock airdrop grows +5%. 2× after 20 hours. Sell and it resets.
+
+AUTOFOLIO: one toggle. Dividends → collateral → mint fUSD → stake. Your folio compounds itself.
+
+foliorh.xyz/app
+CA: 0x2a28d1654d64c1142c7c47324e802a7192837135
+```
