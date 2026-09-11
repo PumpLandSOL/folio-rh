@@ -92,3 +92,71 @@ USDG 90% · ETH 75% · NVDA AAPL GOOGL SPY 55% · HOOD META TSLA 40%
 
 isolated vaults. liquidation at health < 1.0 — the stability pool burns the debt and takes collateral 5% under oracle. foliorh.xyz/docs
 ```
+
+---
+
+## LAUNCH DAY · 5 tweets ($FOLIO on Robinhood Chain) — 2026-09-11
+Post in order, ~1 hour apart. Pin tweet 1. Replace `CA` with the contract address once live (also set FOLIO_MINT on Render so the site CA strip renders).
+
+**1 · Launch (attach folio-hype.mp4 · pin)**
+```
+$FOLIO is live on Robinhood Chain.
+
+A folio of stocks. A dollar that pays you back.
+
+Mint fUSD against NVDA, AAPL, HOOD, SPY, ETH. Every 15 minutes protocol fees buy real stock and airdrop it to holders.
+
+foliorh.xyz
+CA: [CA]
+```
+
+**2 · How it works (attach folio-demo-mint.mp4)**
+```
+fUSD in 15 seconds:
+
+→ pick a vault, tiered LTV, priced off the exchange tape
+→ lock tokenized stock or ETH
+→ mint fUSD at 3% APR
+→ stake → sfUSD, 6% base
+
+Every fee you just paid feeds the dividend engine. Stock out, every 15 min.
+
+foliorh.xyz/app
+```
+
+**3 · Holder boost (attach folio-tech-boost.png)**
+```
+Every stable pays everyone the same rate. Folio pays $FOLIO holders the most.
+
+Your on-chain balance sets a tier. No staking, no snapshot.
+Bronze 1.5× · Silver 2× · Gold 2.5× · Diamond 3×
+
+sfUSD 6% → 18%. Term locks to 50%. Demand is written into the yield curve.
+```
+
+**4 · Buyback & burn (attach folio-tech-burn.png)**
+```
+Every 15 minutes the fee pot splits:
+
+40% buys stock for holders
+30% locks LP
+30% buys back & burns $FOLIO
+
+96 burns a day. Live ledger on the site. Same fee pays you in NVDA and shrinks the float in the same epoch.
+
+foliorh.xyz/proof
+```
+
+**5 · Trade the folio (attach folio-demo-perps.mp4)**
+```
+The stocks that back fUSD are the stocks you can trade.
+
+Perps on HOOD, NVDA, TSLA, SPY up to 10×. BTC, ETH, SOL to 25×. Margin in fUSD.
+
+Every trade fee lands in the same pot that pays the 15-minute dividend.
+
+Trade the folio. Fund the dividend.
+foliorh.xyz/app
+```
+
+Reply under tweet 1: "Not financial advice. Overcollateralized lending, leveraged trading and locked deposits can lose money."
