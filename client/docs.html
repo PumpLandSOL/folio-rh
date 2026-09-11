@@ -70,6 +70,10 @@
  <p>The burn share is <b>not fixed</b>. At the top of each epoch the protocol compares the $FOLIO market price (DexScreener, sampled every 5 min) to its 7-day average: <code>share = 30% + 30% × clamp((avg − px) / avg ÷ 20%, 0, 1)</code>. At or above the average: 30%. Twenty percent below: 60%. The extra comes out of the LP share (stock airdrop stays 40%). The share used is recorded in each epoch receipt. Live at <a href="/proof">/proof</a>.</p>
  <p>30% of every epoch's revenue plus every early-exit penalty is tallied to the burn ledger (<code>burn.fusd</code>, and <code>burn.folio</code> at the DexScreener market price when available). Visible on the Dividends tab and landing folio card.</p>
 
+ <h2>7b · V3 — Hold Streak &amp; Autofolio</h2>
+ <p><b>Hold streak.</b> Each hourly epoch, every holder’s dividend weight is its $FOLIO balance × (1 + 0.05 × streak), where streak is the number of consecutive epochs the wallet held at least 95% of its previous balance. Capped at 20 epochs, so the weight tops out at <b>2×</b>. Selling more than 5% between epochs resets the streak to zero. The pot does not change; the split does.</p>
+ <p><b>Autofolio.</b> A per-wallet toggle on the Dividends tab. When on, each stock airdrop is deposited straight into that stock’s vault as collateral, <b>50% of the new borrowing headroom</b> is minted as fUSD (origination fee applies and flows back into the revenue pot), and the minted fUSD is staked to sfUSD at the wallet’s boosted APY. Headroom under $1 deposits only. Off at any time; nothing is locked by it. API: <code>POST /api/auto {wallet, on}</code>; <code>me.streak</code> and <code>me.auto</code> in <code>/api/state</code>.</p>
+
  <h2>8 · Proof</h2>
  <p><a href="/proof">/proof</a> is the transparency page: treasury balances read from Robinhood Chain, every tx-verified deposit, fees collected vs. stock paid / LP / burn, every block-pinned epoch receipt, the live dynamic-burn meter, and an explicit table of what is on-chain versus protocol ledger. JSON at <code>/api/proof</code>.</p>
 
