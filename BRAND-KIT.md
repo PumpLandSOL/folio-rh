@@ -307,3 +307,20 @@ CA 0x56910D4409F3a0C78C64DD8D0545FF0705389870 · supply 1B · GeckoTerminal dail
 - Now ≈ $0.033 → mcap ≈ $33M, liquidity ≈ $0.95M, 24h vol ≈ $4.6M
 - Launch-week wicks ($0.21 / $1.59 / $3.34 on Jul 11–14) are thin-liquidity prints on $0–$750 volume; not a real ATH.
 - $FOLIO at check: mcap ≈ $29.6K, liq ≈ $16K. 1% of INDEX ATH = $750K (≈25×); INDEX ATH = ≈2,560×.
+
+**folio-vs-nest-index.png · INDEX comparison** (313 chars)
+```
+$INDEX hit $76M paying stock dividends. Nothing else.
+
+$FOLIO pays the same hourly stock dividend, plus:
+fUSD, a dollar backed by stocks
+sfUSD to 18%, locks to 50%
+perps on the collateral
+30% revenue burn
+hold streak → 2× your airdrop
+
+$FOLIO: $30K.
+
+foliorh.xyz/app
+CA: 0x2a28d1654d64c1142c7c47324e802a7192837135
+```
