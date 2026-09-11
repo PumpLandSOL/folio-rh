@@ -1,4 +1,4 @@
-// FOLIO — stock-backed stablecoin (fUSD) + staked yield + 15-minute stock dividends + perps.
+// FOLIO — stock-backed stablecoin (fUSD) + staked yield + hourly stock dividends + perps.
 // Robinhood Chain. Dependency-free Node ≥18. Off-chain ledger, real exchange-tape oracle (Yahoo), USDG pinned to $1.
 'use strict';
 const http = require('http'), fs = require('fs'), path = require('path'), crypto = require('crypto');
@@ -22,7 +22,7 @@ const P = {
   STAKE_TARGET_APY: 0.06,       // sfUSD target
   STAKE_EXIT_FEE: 0.06 / 365,   // one day of target APR, burned
   LIQ_DISCOUNT: 0.05,           // stability pool buys collateral 5% under oracle
-  DIVIDEND_EPOCH: 15 * 60e3,    // The Index cadence
+  DIVIDEND_EPOCH: 60 * 60e3,    // The Index cadence
   DIVIDEND_SPLIT: 0.4,          // 40% stock airdrop / 30% locked LP / 30% buyback&burn (V2)
   PERP_TAKER_FEE: 0.0006, PERP_MAINT: 0.005, PERP_LIQ_FEE: 0.005,
   FUNDING_INTERVAL: 3600e3, FUNDING_K: 0.0001,

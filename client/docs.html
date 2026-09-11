@@ -23,7 +23,7 @@
 </div></header>
 <div class="wrap doc">
  <h1 class="hero" style="font-size:52px">Docs.</h1>
- <blockquote>FOLIO combines a stock-collateral stablecoin (Nest), tiered CDP markets with a stability pool (Arrow, Robinhood Chain) and a 15-minute stock-dividend engine (The Index, Robinhood Chain) — and adds perpetuals margined in the stablecoin.</blockquote>
+ <blockquote>FOLIO combines a stock-collateral stablecoin (Nest), tiered CDP markets with a stability pool (Arrow, Robinhood Chain) and a hourly stock-dividend engine (The Index, Robinhood Chain) — and adds perpetuals margined in the stablecoin.</blockquote>
 
  <h2>1 · fUSD — minting</h2>
  <p>Each collateral asset is an <b>isolated market</b> with its own LTV, liquidation threshold and debt cap. Deposit collateral, mint fUSD up to <code>collateral × price × LTV</code>. Positions are not cross-collateralized.</p>
@@ -46,7 +46,7 @@
  <h2>4 · Stability pool &amp; liquidations</h2>
  <p>When a vault's health factor drops below 1.0 the <b>stability pool</b> burns fUSD equal to the debt and receives collateral valued at <code>oracle × (1 − 5%)</code>, credited pro-rata to depositors. Any remaining collateral returns to the vault owner. If the pool is too shallow the <b>surplus buffer</b> (accumulated fees) absorbs the shortfall.</p>
 
- <h2>5 · Dividend engine (every 15 minutes)</h2>
+ <h2>5 · Dividend engine (every hour)</h2>
  <p>All protocol revenue — origination, stability, perp taker/liquidation fees — accrues to a pot. At each quarter-hour: <b>40%</b> buys a tokenized stock at oracle price and is airdropped to $FOLIO holders pro-rata to balance; <b>30%</b> is added to locked FOLIO liquidity; <b>30%</b> is allocated to <b>$FOLIO buyback &amp; burn</b> (V2), tallied in fUSD and executed from the treasury at market — the burn is a permanent reduction in circulating supply. Stock rotation: NVDA → AAPL → GOOGL → HOOD → META → SPY. Holder weight is the <b>real $FOLIO balance read on Robinhood Chain</b> (ERC-20 <code>balanceOf</code>, public RPC with failover) for every connected wallet, refreshed every two minutes and on demand. Each epoch pins the chain block and emits a SHA-256 receipt over the payout — see <code>/api/dividends</code> and <code>/api/holder?w=</code>.</p>
 
  <h2>6 · Perpetuals</h2>
@@ -74,7 +74,7 @@
  <p><a href="/proof">/proof</a> is the transparency page: treasury balances read from Robinhood Chain, every tx-verified deposit, fees collected vs. stock paid / LP / burn, every block-pinned epoch receipt, the live dynamic-burn meter, and an explicit table of what is on-chain versus protocol ledger. JSON at <code>/api/proof</code>.</p>
 
  <h2>9 · $FOLIO</h2>
- <p>The protocol token on Robinhood Chain. Holding it is what earns the 15-minute stock dividends. Nothing here is financial advice; overcollateralized lending and leveraged trading can lose money.</p>
+ <p>The protocol token on Robinhood Chain. Holding it is what earns the hourly stock dividends. Nothing here is financial advice; overcollateralized lending and leveraged trading can lose money.</p>
 </div>
 <footer><div class="gold-rule"></div><div class="wrap"><span class="seals"><svg class="seal" aria-hidden="true"><use href="#zMonkey"/></svg><svg class="seal" aria-hidden="true"><use href="#zHorse"/></svg></span><span>Folio · $FOLIO · Robinhood Chain</span><span>fUSD · sfUSD · dividends · perps</span></div></footer>
 </body></html>

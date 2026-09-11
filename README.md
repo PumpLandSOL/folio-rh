@@ -1,6 +1,6 @@
 # Folio — foliorh.xyz
 
-A folio of stocks, a dollar that pays. fUSD stock-collateral stablecoin + sfUSD + stability pool + 15-minute stock dividends + perps, on Robinhood Chain.
+A folio of stocks, a dollar that pays. fUSD stock-collateral stablecoin + sfUSD + stability pool + hourly stock dividends + perps, on Robinhood Chain.
 
 Dependency-free Node ≥18. `node server/index.js` (port 8188). Env: `PORT`, `DATA_PATH` (persist data.json), `FOLIO_MINT` (Robinhood Chain token address → live price + on-chain holder reads).
 

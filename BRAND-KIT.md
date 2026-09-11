@@ -1,6 +1,6 @@
 # FOLIO — Brand Kit
 
-**A folio of stocks. A dollar that pays you back.** fUSD stock-collateral stablecoin + sfUSD + stability pool + 15-minute stock dividends + perps, on Robinhood Chain.
+**A folio of stocks. A dollar that pays you back.** fUSD stock-collateral stablecoin + sfUSD + stability pool + hourly stock dividends + perps, on Robinhood Chain.
 
 - Site: https://foliorh.xyz · X: @FolioOnRH (placeholder — site `/x` redirects) · Ticker: **$FOLIO**
 
@@ -14,7 +14,7 @@
 | folio-ledger.png | 2400×1350 | "One dollar. Five lines." explainer (hold/stake/backstop/dividend/trade) |
 | folio-markets.png | 2400×1350 | Collateral tiers (Stables 90 · ETH 75 · T1 55 · T2 40) |
 | folio-perps.png | 2400×1350 | Dark perps key-art ("Trade the folio. Fund the dividend.") |
-| **folio-hype.mp4** | 1280×720 · 10s | Hype cut — seals → mint → 15-min dividend → stake/backstop/trade → endcard |
+| **folio-hype.mp4** | 1280×720 · 10s | Hype cut — seals → mint → hourly dividend → stake/backstop/trade → endcard |
 | **folio-demo-mint.mp4** | 1280×720 · 15s | Tech demo 1 — real app: pick NVDA vault → deposit 5 → mint 500 fUSD → stake → sfUSD |
 | **folio-demo-perps.mp4** | 1280×720 · 15s | Tech demo 2 — real app: HOOD 10× long on fUSD margin → fee lands in revenue pot → dividend engine |
 
@@ -33,7 +33,7 @@ Brokerage-statement calm. Short declaratives. Never "demo", "beta", "simulated",
 Taglines: "A folio of stocks. A dollar that pays you back." · "Your stocks, working." · "Fees in. Stock out." · "Trade the folio. Fund the dividend." · "One dollar. Five lines."
 
 ## X bio
-> A folio of stocks. A dollar that pays you back. Mint fUSD against tokenized equities & ETH — every 15 min protocol fees buy stock for $FOLIO holders. Robinhood Chain · foliorh.xyz
+> A folio of stocks. A dollar that pays you back. Mint fUSD against tokenized equities & ETH — every hour protocol fees buy stock for $FOLIO holders. Robinhood Chain · foliorh.xyz
 
 ## Tweets
 
@@ -43,7 +43,7 @@ introducing FOLIO
 
 a folio of stocks. a dollar that pays you back.
 
-mint fUSD against NVDA, AAPL, HOOD, SPY, ETH. stake it. every 15 minutes, protocol fees buy stock and airdrop it to $FOLIO holders.
+mint fUSD against NVDA, AAPL, HOOD, SPY, ETH. stake it. every hour, protocol fees buy stock and airdrop it to $FOLIO holders.
 
 Robinhood Chain → foliorh.xyz
 ```
@@ -66,7 +66,7 @@ the loop that makes $FOLIO different:
 
 → open a HOOD 10× long on fUSD margin (0.06% fee)
 → that fee lands in the revenue pot
-→ every 15 min: 50% buys stock at oracle → airdropped to holders, 50% → locked LP
+→ every hour: 50% buys stock at oracle → airdropped to holders, 50% → locked LP
 
 fees in. stock out. foliorh.xyz
 ```
@@ -78,7 +78,7 @@ one dollar. five lines.
 01 hold — fUSD, redeemable 1:1 via PSM
 02 stake — sfUSD, 6% target
 03 backstop — stability pool, 5% liq. discount
-04 dividend — stock airdrop every 15 min
+04 dividend — stock airdrop every hour
 05 trade — perps, 25× crypto / 10× stocks
 
 $FOLIO · Robinhood Chain
@@ -104,7 +104,7 @@ $FOLIO is live on Robinhood Chain.
 
 A folio of stocks. A dollar that pays you back.
 
-Mint fUSD against NVDA, AAPL, HOOD, SPY, ETH. Every 15 minutes protocol fees buy real stock and airdrop it to holders.
+Mint fUSD against NVDA, AAPL, HOOD, SPY, ETH. Every hour protocol fees buy real stock and airdrop it to holders.
 
 foliorh.xyz
 CA: [CA]
@@ -119,7 +119,7 @@ fUSD in 15 seconds:
 → mint fUSD at 3% APR
 → stake → sfUSD, 6% base
 
-Every fee you just paid feeds the dividend engine. Stock out, every 15 min.
+Every fee you just paid feeds the dividend engine. Stock out, every hour.
 
 foliorh.xyz/app
 ```
@@ -136,13 +136,13 @@ sfUSD 6% → 18%. Term locks to 50%. Demand is written into the yield curve.
 
 **4 · Buyback & burn (attach folio-tech-burn.png)**
 ```
-Every 15 minutes the fee pot splits:
+Every hour the fee pot splits:
 
 40% buys stock for holders
 30% locks LP
 30% buys back & burns $FOLIO
 
-96 burns a day. Live ledger on the site. Same fee pays you in NVDA and shrinks the float in the same epoch.
+24 burns a day. Live ledger on the site. Same fee pays you in NVDA and shrinks the float in the same epoch.
 
 foliorh.xyz/proof
 ```
@@ -153,7 +153,7 @@ The stocks that back fUSD are the stocks you can trade.
 
 Perps on HOOD, NVDA, TSLA, SPY up to 10×. BTC, ETH, SOL to 25×. Margin in fUSD.
 
-Every trade fee lands in the same pot that pays the 15-minute dividend.
+Every trade fee lands in the same pot that pays the hourly dividend.
 
 Trade the folio. Fund the dividend.
 foliorh.xyz/app
