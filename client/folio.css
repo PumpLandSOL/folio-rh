@@ -109,3 +109,44 @@ footer .seals{display:flex;gap:10px;align-items:center}
 .faq details{border-bottom:1px solid var(--rule)}.faq summary{cursor:pointer;list-style:none;padding:18px 36px 18px 0;font-size:20px;font-weight:400;position:relative;font-family:'Newsreader',serif}
 .faq summary::-webkit-details-marker{display:none}.faq summary:after{content:"+";position:absolute;right:2px;top:12px;font-size:26px;font-weight:300;color:var(--gold)}
 .faq details[open] summary:after{content:"–"}.faq p{margin:0 0 18px;color:var(--ink2);max-width:720px}
+
+/* ---------- mobile (2026-09-11) ---------- */
+@media(max-width:700px){
+  html,body{overflow-x:hidden}
+  .wrap{padding:0 16px}
+  header.top .wrap{height:auto;flex-wrap:wrap;gap:8px 12px;padding:10px 16px}
+  nav{flex-wrap:wrap;gap:8px 14px;font-size:12.5px;width:100%;justify-content:flex-start}
+  nav .btn.mini,nav button.btn{margin-left:auto}
+  h1.hero{margin:40px 0 18px;font-size:clamp(38px,11vw,56px)}
+  .lede{font-size:16px}
+  .hero2i{padding-top:20px;padding-bottom:36px;gap:28px}
+  .miniledger{grid-template-columns:1fr 1fr;gap:16px 18px}
+  .folio-card{max-width:100%;margin-left:0;transform:none}
+  .seal.wm,.seal.wm2{display:none}
+  .stats{grid-template-columns:1fr 1fr}
+  .pills{flex-wrap:wrap}
+  .timeline{grid-template-columns:1fr;padding-left:22px}
+  .steps{gap:26px}
+  .card{padding:22px 18px 20px}
+  .card h4{font-size:26px}
+  .card .kv b{font-size:30px}
+  .sec h2{font-size:30px}
+  .two{grid-template-columns:1fr}
+  .tabs{gap:0;overflow-x:auto;flex-wrap:nowrap;-webkit-overflow-scrolling:touch}
+  .tabs button{padding:12px 12px;white-space:nowrap}
+  .panel,.doc{overflow-x:hidden}
+  .panel table,.doc table{display:block;overflow-x:auto;white-space:nowrap;-webkit-overflow-scrolling:touch}
+  .field input,.field select{font-size:16px}
+  .hl .grid2{grid-template-columns:1fr}
+  .hl .ticket{border-left:0;border-top:1px solid var(--hl-line)}
+  .hl .strip{gap:18px}
+  .btn.lg,.btn.big{width:100%;text-align:center}
+  .cta,.ctas{flex-wrap:wrap}
+  .v2strip a{white-space:normal}
+}
+@media(max-width:700px){
+  .hobj,.folio-card,.hero2i>*{width:100%;max-width:100%;min-width:0}
+  .two>*,.hl .grid2>*,.grid>*,.reserve>*{min-width:0}
+  table{display:block;overflow-x:auto;max-width:100%;-webkit-overflow-scrolling:touch}
+  table.cmp{white-space:nowrap}
+}
